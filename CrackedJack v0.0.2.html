@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>CrackedJack v0.0.1</title>
+  <title>CrackedJack v0.0.2</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -72,7 +72,7 @@
 
     /* ── CARDS ── */
     .card {
-      width: 54px; height: 76px; border-radius: 6px;
+      width: 48px; height: 68px; border-radius: 6px;
       border: 2px solid #ccc; background: #fff;
       display: flex; flex-direction: column; justify-content: space-between;
       padding: 3px 4px; font-weight: 700;
@@ -97,12 +97,12 @@
       box-shadow: 0 10px 24px rgba(201,149,42,0.8);
       border-color: var(--color-primary);
     }
-    .card-tl { line-height: 1.1; font-size: 11px; }
-    .card-center { text-align: center; font-size: 20px; line-height: 1; }
-    .card-br { line-height: 1.1; font-size: 11px; transform: rotate(180deg); text-align: left; }
+    .card-tl { line-height: 1.1; font-size: 9px; }
+    .card-center { text-align: center; font-size: 16px; line-height: 1; }
+    .card-br { line-height: 1.1; font-size: 9px; transform: rotate(180deg); text-align: left; }
 
     .card-slot {
-      width: 58px; height: 80px; border-radius: 6px;
+      width: 52px; height: 72px; border-radius: 6px;
       border: 2px dashed rgba(201,149,42,0.35);
       background: rgba(201,149,42,0.04);
       display: flex; align-items: center; justify-content: center;
@@ -120,7 +120,7 @@
     .hand-group {
       background: rgba(0,0,0,0.3);
       border: 2px solid rgba(201,149,42,0.2);
-      border-radius: 8px; padding: 8px 10px;
+      border-radius: 8px; padding: 5px 6px;
       transition: border-color 0.15s;
     }
     .hand-group.slot-hot { border-color: rgba(201,149,42,0.6); }
@@ -160,15 +160,15 @@
     <div id="start-main" class="menu-scroll relative z-10">
       <div class="text-center pt-4 pb-4 px-6" style="border-bottom:4px solid var(--color-shadow);">
         <div style="min-height:140px;display:flex;align-items:center;justify-content:center;">
-          <h1 style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2.5rem,10vw,5rem);
+          <h1 style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.8rem,7.5vw,5rem);
                       color:var(--color-glow);text-shadow:3px 3px 0 var(--color-shadow),0 0 20px rgba(201,149,42,0.5);
-                      text-transform:uppercase;letter-spacing:0.12em;line-height:1.1;">
+                      text-transform:uppercase;letter-spacing:0.07em;line-height:1.1;">
             CrackedJack
           </h1>
         </div>
         <div class="flex items-center justify-center gap-3 mt-2">
           <div class="flex-grow h-px" style="background:linear-gradient(to right,transparent,var(--color-primary))"></div>
-          <span style="font-size:1rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.4em;font-family:'VT323',monospace;">Three Hands. One Winner.</span>
+          <span style="font-size:clamp(0.7rem,3vw,1rem);color:var(--color-primary);text-transform:uppercase;letter-spacing:0.15em;font-family:'VT323',monospace;">Three Hands. One Winner.</span>
           <div class="flex-grow h-px" style="background:linear-gradient(to left,transparent,var(--color-primary))"></div>
         </div>
       </div>
@@ -182,7 +182,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.1</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.2</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -329,7 +329,7 @@
       </div>
 
       <!-- HAND SLOTS -->
-      <div class="flex gap-2 justify-center mb-4" id="slot-area"></div>
+      <div class="flex gap-1 justify-center mb-4" id="slot-area"></div>
 
       <hr class="divider">
 
@@ -399,7 +399,7 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.1</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.2</p>
   </div>
 
   <script>
@@ -467,6 +467,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.2', date:'2026-05', notes:['Fixed main menu title overflow on small screens.', 'Reduced card and slot sizes in placing phase to fit mobile screens.'] },
       { v:'v0.0.1', date:'2026-05', notes:['Initial release. Three-hand blackjack. Blind card placement. ELO ranking system.'] },
     ];
     function renderHighScores() {
@@ -689,14 +690,14 @@
         const div = document.createElement('div');
         div.className = `hand-group${hot ? ' slot-hot' : ''}`;
         div.onclick = () => clickHandGroup(h);
-        let inner = `<div class="hand-label">Hand ${h+1}</div><div class="flex gap-2">`;
+        let inner = `<div class="hand-label">Hand ${h+1}</div><div class="flex gap-1">`;
         for (let s = 0; s < 2; s++) {
           const cidx = playerHands[h][s];
           if (cidx !== undefined) {
             const c = playerCards[cidx];
             const red = ['♥','♦'].includes(c.suit);
             inner += `<div class="card-slot slot-filled" onclick="event.stopPropagation();unplaceCard(${h},${s})">
-              <div class="card ${red?'card-red':'card-black'}" style="width:54px;height:76px;">
+              <div class="card ${red?'card-red':'card-black'}">
                 <div class="card-tl">${c.value}<br>${c.suit}</div>
                 <div class="card-center">${c.suit}</div>
                 <div class="card-br">${c.value}<br>${c.suit}</div>
