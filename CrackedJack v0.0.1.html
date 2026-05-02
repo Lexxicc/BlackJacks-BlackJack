@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>CrackedJack v0.0.1</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
+
+    :root {
+      --color-bg-dark:  #0b1a10;
+      --color-panel:    #152d1c;
+      --color-primary:  #c9952a;
+      --color-accent:   #e6b84d;
+      --color-glow:     #f7d76e;
+      --color-shadow:   #060e08;
+    }
+
+    /* ── FRONT MENU ── */
+    .menu-scroll {
+      background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-panel) 45%, var(--color-panel) 55%, var(--color-bg-dark) 100%);
+      border: 6px solid var(--color-primary);
+      box-shadow: 0 0 6px 2px rgba(201,149,42,0.55),
+                  0 0 28px 4px rgba(201,149,42,0.28),
+                  0 0 70px rgba(201,149,42,0.12),
+                  inset 0 0 40px rgba(0,0,0,0.45);
+      width: 640px; max-width: 92vw; max-height: 92vh;
+      overflow-y: auto; scrollbar-width: none;
+    }
+    .menu-scroll::-webkit-scrollbar { display: none; }
+    .start-menu-btn {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      padding: 14px 24px; font-family: 'VT323', monospace; font-size: 1.45rem;
+      text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-glow);
+      background: transparent; border: none; border-bottom: 2px solid var(--color-shadow);
+      cursor: pointer; text-shadow: 2px 2px 0 var(--color-shadow);
+      text-align: left; transition: background 0.12s, padding-left 0.12s;
+    }
+    .start-menu-btn:hover { background: rgba(201,149,42,0.10); color: #fff; padding-left: 28px; }
+    .start-menu-btn:last-child { border-bottom: none; }
+    .start-back-btn {
+      font-family: 'VT323', monospace; font-size: 1.1rem; text-transform: uppercase;
+      padding: 6px 14px; color: var(--color-primary); background: transparent;
+      border: 4px solid var(--color-primary); cursor: pointer; letter-spacing: 0.05em;
+    }
+    .start-back-btn:hover { background: var(--color-primary); color: var(--color-bg-dark); }
+    .subpanel-header {
+      display: flex; align-items: center; gap: 16px; padding: 16px;
+      background: var(--color-bg-dark); position: sticky; top: 0; z-index: 10;
+      border-bottom: 6px solid var(--color-primary);
+    }
+    .subpanel-header h2 {
+      font-size: 1.5rem; color: var(--color-glow);
+      font-weight: bold; text-transform: uppercase; font-style: italic;
+    }
+    .subpanel-footer { position: sticky; bottom: 0; height: 6px; background: var(--color-bg-dark); }
+
+    /* ── GAME STYLES ── */
+    body {
+      background-color: var(--color-bg-dark);
+      font-family: 'Barlow', sans-serif;
+      color: #fff;
+      min-height: 100vh; min-height: 100dvh;
+      margin: 0;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
+      box-sizing: border-box;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      width: 54px; height: 76px; border-radius: 6px;
+      border: 2px solid #ccc; background: #fff;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 3px 4px; font-weight: 700;
+      position: relative; cursor: pointer; user-select: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+    }
+    .card-red  { color: #c0392b; }
+    .card-black { color: #1a1a1a; }
+    .card-back {
+      background: var(--color-panel);
+      background-image:
+        repeating-linear-gradient(45deg, rgba(201,149,42,0.18) 0, rgba(201,149,42,0.18) 1px, transparent 0, transparent 50%),
+        repeating-linear-gradient(-45deg, rgba(201,149,42,0.18) 0, rgba(201,149,42,0.18) 1px, transparent 0, transparent 50%);
+      background-size: 8px 8px;
+      border-color: var(--color-primary);
+      cursor: pointer;
+    }
+    .card.selected {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 24px rgba(201,149,42,0.8);
+      border-color: var(--color-primary);
+    }
+    .card-tl { line-height: 1.1; font-size: 11px; }
+    .card-center { text-align: center; font-size: 20px; line-height: 1; }
+    .card-br { line-height: 1.1; font-size: 11px; transform: rotate(180deg); text-align: left; }
+
+    .card-slot {
+      width: 58px; height: 80px; border-radius: 6px;
+      border: 2px dashed rgba(201,149,42,0.35);
+      background: rgba(201,149,42,0.04);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+    .card-slot.slot-hot {
+      border-color: var(--color-primary);
+      background: rgba(201,149,42,0.12);
+    }
+    .card-slot.slot-filled {
+      border-style: solid; border-color: rgba(201,149,42,0.25);
+      padding: 0; overflow: hidden;
+    }
+    .hand-group {
+      background: rgba(0,0,0,0.3);
+      border: 2px solid rgba(201,149,42,0.2);
+      border-radius: 8px; padding: 8px 10px;
+      transition: border-color 0.15s;
+    }
+    .hand-group.slot-hot { border-color: rgba(201,149,42,0.6); }
+    .hand-label {
+      font-family: 'VT323', monospace; font-size: 0.9rem;
+      color: var(--color-primary); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 6px; text-align: center;
+    }
+
+    .btn-action {
+      font-family: 'VT323', monospace; font-size: 1.4rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 10px 28px; border: 3px solid var(--color-primary);
+      background: var(--color-panel); color: var(--color-glow);
+      cursor: pointer; transition: background 0.12s;
+    }
+    .btn-action:hover { background: var(--color-primary); color: var(--color-bg-dark); }
+    .btn-action:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+    .btn-hit  { border-color: #4ade80 !important; color: #4ade80 !important; }
+    .btn-hit:hover  { background: #4ade80 !important; color: #000 !important; }
+    .btn-stand { border-color: #f97316 !important; color: #f97316 !important; }
+    .btn-stand:hover { background: #f97316 !important; color: #fff !important; }
+
+    .val-display { font-family: 'VT323', monospace; font-size: 1.4rem; color: var(--color-glow); }
+    .val-display.bust { color: #f87171; }
+    .val-display.bj   { color: #ffd700; }
+
+    .divider { border: none; border-top: 1px solid rgba(201,149,42,0.2); margin: 10px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ START OVERLAY ═══ -->
+  <div id="start-overlay" class="fixed inset-0 z-[200] flex items-center justify-center" style="background:#000;">
+
+    <!-- ── MAIN ── -->
+    <div id="start-main" class="menu-scroll relative z-10">
+      <div class="text-center pt-4 pb-4 px-6" style="border-bottom:4px solid var(--color-shadow);">
+        <div style="min-height:140px;display:flex;align-items:center;justify-content:center;">
+          <h1 style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2.5rem,10vw,5rem);
+                      color:var(--color-glow);text-shadow:3px 3px 0 var(--color-shadow),0 0 20px rgba(201,149,42,0.5);
+                      text-transform:uppercase;letter-spacing:0.12em;line-height:1.1;">
+            CrackedJack
+          </h1>
+        </div>
+        <div class="flex items-center justify-center gap-3 mt-2">
+          <div class="flex-grow h-px" style="background:linear-gradient(to right,transparent,var(--color-primary))"></div>
+          <span style="font-size:1rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.4em;font-family:'VT323',monospace;">Three Hands. One Winner.</span>
+          <div class="flex-grow h-px" style="background:linear-gradient(to left,transparent,var(--color-primary))"></div>
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <button class="start-menu-btn" onclick="startGame()"><span>Play</span><span class="ml-auto text-base opacity-40 font-sans">↵</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('challenge')"><span>Challenge</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('howtoplay')"><span>How to Play</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('highscores')"><span>High Scores</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('patchnotes')"><span>Patch Notes</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('settings')"><span>Settings</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;opacity:0.6;">
+        <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.1</span>
+        <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
+      </div>
+    </div>
+
+    <!-- ── CHALLENGE ── -->
+    <div id="start-challenge" class="menu-scroll hidden relative z-10">
+      <div class="subpanel-header">
+        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
+        <h2>Challenge</h2>
+      </div>
+      <div class="p-6 space-y-6" style="font-family:'VT323',monospace;">
+        <div>
+          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;border-bottom:1px solid var(--color-shadow);padding-bottom:4px;margin-bottom:12px">Accept a Challenge</h3>
+          <input id="challenge-input" type="text" placeholder="Paste challenge code..."
+                 style="width:100%;padding:10px 12px;background:var(--color-panel);border:2px solid var(--color-primary);
+                        color:var(--color-glow);font-family:'VT323',monospace;font-size:1rem;outline:none;box-sizing:border-box;">
+          <button onclick="acceptChallenge()"
+                  style="margin-top:12px;width:100%;padding:10px;font-family:'VT323',monospace;
+                         font-size:1.2rem;text-transform:uppercase;background:var(--color-primary);
+                         color:var(--color-bg-dark);border:none;cursor:pointer;">
+            Accept &amp; Play
+          </button>
+          <p id="challenge-error" class="hidden" style="margin-top:8px;color:#e84449;font-size:0.875rem;"></p>
+        </div>
+        <div>
+          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;border-bottom:1px solid var(--color-shadow);padding-bottom:4px;margin-bottom:12px">Issue a Challenge</h3>
+          <p style="color:#d1d5db;font-size:0.875rem;margin-bottom:12px">Play normally. At the end you'll get a shareable code — friends play the exact same deal and try to beat your result.</p>
+          <button onclick="startGame()"
+                  style="width:100%;padding:10px;font-family:'VT323',monospace;font-size:1.2rem;
+                         text-transform:uppercase;background:transparent;color:var(--color-primary);
+                         border:2px solid var(--color-primary);cursor:pointer;">
+            Play &amp; Generate Code
+          </button>
+        </div>
+      </div>
+      <div class="subpanel-footer"></div>
+    </div>
+
+    <!-- ── HOW TO PLAY ── -->
+    <div id="start-howtoplay" class="menu-scroll hidden relative z-10">
+      <div class="subpanel-header">
+        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
+        <h2>How to Play</h2>
+      </div>
+      <div class="p-5 text-sm space-y-4" style="font-family:'VT323',monospace;color:#d1d5db;">
+        <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Setup</p>
+          <p style="line-height:1.6">You're dealt 6 face-down cards. Tap a card to select it, then tap a hand slot to place it. Build 3 hands of 2 cards each.</p>
+        </div>
+        <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Twist</p>
+          <p style="line-height:1.6">You don't know what cards you're placing — they're face down. The dealer's 6 cards are split randomly into 3 hands. No peeking.</p>
+        </div>
+        <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Playing</p>
+          <p style="line-height:1.6">Once all cards are placed, your hands are revealed. Play Hand 1 vs Dealer Hand 1, then Hand 2 vs Hand 2, then Hand 3 vs Hand 3. Hit or Stand as normal blackjack. Dealer hits on 16 or below.</p>
+        </div>
+        <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Winning</p>
+          <p style="line-height:1.6">Best 2 hands out of 3 wins the match. Your ELO rating goes up or down based on the result.</p>
+        </div>
+        <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">ELO</p>
+          <p style="line-height:1.6">Start at 1200. Win a match and your ELO climbs. Lose and it drops. The stronger your rating, the less you gain from a win and the more you lose from a defeat.</p>
+        </div>
+      </div>
+      <div class="subpanel-footer"></div>
+    </div>
+
+    <!-- ── HIGH SCORES ── -->
+    <div id="start-highscores" class="menu-scroll hidden relative z-10">
+      <div class="subpanel-header">
+        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
+        <h2>High Scores</h2>
+      </div>
+      <div class="p-5" id="hs-list">
+        <p style="text-align:center;color:var(--color-primary);opacity:0.5;font-size:0.875rem;margin-top:32px">No scores yet.</p>
+      </div>
+      <div class="subpanel-footer"></div>
+    </div>
+
+    <!-- ── PATCH NOTES ── -->
+    <div id="start-patchnotes" class="menu-scroll hidden relative z-10">
+      <div class="subpanel-header">
+        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
+        <h2>Patch Notes</h2>
+      </div>
+      <div id="pn-list" class="p-5 text-sm space-y-5" style="font-family:'VT323',monospace;"></div>
+      <div class="subpanel-footer"></div>
+    </div>
+
+    <!-- ── SETTINGS ── -->
+    <div id="start-settings" class="menu-scroll hidden relative z-10">
+      <div class="subpanel-header">
+        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
+        <h2>Settings</h2>
+      </div>
+      <div class="p-6 space-y-6" style="font-family:'VT323',monospace;">
+        <div>
+          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;font-size:0.875rem;border-bottom:1px solid var(--color-shadow);padding-bottom:8px;margin-bottom:16px;letter-spacing:0.1em">Audio</h3>
+          <div class="flex items-center justify-between py-2" style="border-bottom:1px solid var(--color-shadow)">
+            <span style="color:#d1d5db">SFX Volume</span>
+            <div class="flex items-center gap-3">
+              <input type="range" id="vol-slider" min="0" max="100" value="100" oninput="updateVolume(this.value)"
+                     style="accent-color:var(--color-primary);width:120px">
+              <span id="vol-val" style="color:var(--color-glow);width:40px;text-align:right">100%</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between py-2">
+            <span style="color:#d1d5db">Sound Effects</span>
+            <button id="sfx-toggle" onclick="toggleSFX()"
+                    style="padding:4px 12px;text-transform:uppercase;font-weight:bold;font-family:'VT323',monospace;
+                           border:4px solid var(--color-primary);background:var(--color-panel);color:var(--color-glow);
+                           box-shadow:inset -2px -2px 0px var(--color-shadow);cursor:pointer;">ON</button>
+          </div>
+        </div>
+      </div>
+      <div class="subpanel-footer"></div>
+    </div>
+
+  </div><!-- /start-overlay -->
+
+  <!-- ═══ GAME ═══ -->
+  <div id="game-main" class="w-full max-w-lg mx-auto px-3" style="display:none;">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between py-3 px-1" style="border-bottom:2px solid rgba(201,149,42,0.3);">
+      <div>
+        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
+        <div id="elo-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">1200</div>
+      </div>
+      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--color-glow);opacity:0.7;">CrackedJack</div>
+      <div class="text-right">
+        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Match</div>
+        <div id="match-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">0 – 0</div>
+      </div>
+    </div>
+
+    <!-- ── PLACING PHASE ── -->
+    <div id="phase-placing" style="display:none;">
+      <div class="text-center py-3">
+        <div style="font-family:'VT323',monospace;font-size:1.1rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Place Your Cards</div>
+        <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:2px;">Tap a card, then tap a slot</div>
+      </div>
+
+      <!-- HAND SLOTS -->
+      <div class="flex gap-2 justify-center mb-4" id="slot-area"></div>
+
+      <hr class="divider">
+
+      <!-- PLAYER POOL -->
+      <div class="text-center mb-2" style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Your Cards</div>
+      <div class="flex gap-2 justify-center flex-wrap mb-4" id="card-pool"></div>
+
+      <div class="text-center mt-3 pb-4">
+        <button id="deal-btn" class="btn-action" style="display:none;" onclick="revealAndPlay()">Reveal &amp; Play →</button>
+      </div>
+    </div>
+
+    <!-- ── PLAYING PHASE ── -->
+    <div id="phase-playing" style="display:none;padding:12px 4px;">
+      <div class="text-center mb-3">
+        <div id="playing-label" style="font-family:'VT323',monospace;font-size:1.2rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Hand 1 of 3</div>
+      </div>
+
+      <!-- DEALER -->
+      <div class="mb-3">
+        <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Dealer</div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="flex gap-2 flex-wrap" id="dealer-cards-display"></div>
+          <div id="dealer-val" class="val-display"></div>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <!-- PLAYER -->
+      <div class="mb-4">
+        <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">You</div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="flex gap-2 flex-wrap" id="player-cards-display"></div>
+          <div id="player-val" class="val-display"></div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="flex gap-3 justify-center mb-4" id="action-btns">
+        <button class="btn-action btn-hit"  onclick="doHit()">Hit</button>
+        <button class="btn-action btn-stand" onclick="doStand()">Stand</button>
+      </div>
+
+      <!-- HAND RESULT -->
+      <div id="hand-result-area" style="display:none;text-align:center;padding:10px 0;">
+        <div id="hand-result-text" style="font-family:'VT323',monospace;font-size:1.8rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px;"></div>
+        <button id="next-btn" class="btn-action" onclick="nextHand()"></button>
+      </div>
+    </div>
+
+    <!-- ── RESULTS PHASE ── -->
+    <div id="phase-results" style="display:none;padding:12px 4px;">
+      <div class="text-center mb-4 pt-2">
+        <div id="results-winner" style="font-family:'VT323',monospace;font-size:2.2rem;text-transform:uppercase;letter-spacing:0.1em;"></div>
+        <div id="results-score" style="font-family:'VT323',monospace;font-size:1.3rem;color:var(--color-accent);margin-top:4px;"></div>
+      </div>
+
+      <div id="results-breakdown" class="space-y-2 mb-4"></div>
+
+      <div id="elo-result" class="text-center mb-4 py-3" style="font-family:'VT323',monospace;border:2px solid rgba(201,149,42,0.3);background:rgba(0,0,0,0.3);"></div>
+
+      <div class="flex gap-3 justify-center pb-6">
+        <button class="btn-action" id="share-btn">Share</button>
+        <button class="btn-action" onclick="initGame()">Play Again</button>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.1</p>
+  </div>
+
+  <script>
+    // ─── WIPE GUARD ──────────────────────────────────────────────────────────
+    (function(){ var k='CrackedJack_wipe_v1'; if(localStorage.getItem(k)!=='1'){ localStorage.removeItem('CrackedJack_stats'); localStorage.setItem(k,'1'); } })();
+
+    // ─── STATS ───────────────────────────────────────────────────────────────
+    const STATS_KEY = 'CrackedJack_stats';
+    function loadStats() {
+      return JSON.parse(localStorage.getItem(STATS_KEY) || '{"elo":1200,"gamesPlayed":0,"wins":0,"losses":0,"draws":0,"history":[]}');
+    }
+    function saveGame(result, eloDelta) {
+      const s = loadStats();
+      s.gamesPlayed++;
+      if (result === 'win') s.wins++;
+      else if (result === 'lose') s.losses++;
+      else s.draws++;
+      s.elo = Math.max(100, s.elo + eloDelta);
+      s.history.unshift({ elo: s.elo, eloDelta, result, date: Date.now(), isChallenge: isChallengeMode });
+      s.history = s.history.slice(0, 20);
+      localStorage.setItem(STATS_KEY, JSON.stringify(s));
+      return s.elo;
+    }
+
+    // ─── SEEDED RNG ───────────────────────────────────────────────────────────
+    function mulberry32(seed) {
+      return function() {
+        seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+        var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+    }
+    let rng = Math.random;
+
+    // ─── CHALLENGE ────────────────────────────────────────────────────────────
+    let challengeSeed = null;
+    let isChallengeMode = false;
+
+    function generateSeed() {
+      return Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6,'0').toUpperCase();
+    }
+    function acceptChallenge() {
+      const raw = document.getElementById('challenge-input').value.trim().toUpperCase();
+      const errEl = document.getElementById('challenge-error');
+      if (!raw) { errEl.innerText = 'Paste a challenge code first.'; errEl.classList.remove('hidden'); return; }
+      challengeSeed = raw;
+      rng = mulberry32(parseInt(challengeSeed, 16));
+      isChallengeMode = true;
+      errEl.classList.add('hidden');
+      startGame(true);
+    }
+    function copyShareText() {
+      if (!challengeSeed) challengeSeed = generateSeed();
+      const stats = loadStats();
+      const text = `I'm rated ${stats.elo} ELO on CrackedJack! Challenge code: ${challengeSeed} — can you beat it?`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('share-btn');
+        if (btn) { const old = btn.innerText; btn.innerText = 'Copied!'; setTimeout(() => btn.innerText = old, 2000); }
+      });
+    }
+
+    // ─── FRONT MENU ───────────────────────────────────────────────────────────
+    function escHtml(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    const PATCH_NOTES = [
+      { v:'v0.0.1', date:'2026-05', notes:['Initial release. Three-hand blackjack. Blind card placement. ELO ranking system.'] },
+    ];
+    function renderHighScores() {
+      const el = document.getElementById('hs-list');
+      const stats = loadStats();
+      el.innerHTML = `
+        <div style="text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid rgba(201,149,42,0.25);">
+          <div style="font-family:'VT323',monospace;color:rgba(201,149,42,0.7);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;">Current ELO</div>
+          <div style="font-family:'VT323',monospace;color:var(--color-glow);font-size:2.8rem;line-height:1.1;">${stats.elo}</div>
+          <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;">${stats.wins}W &nbsp;${stats.losses}L &nbsp;${stats.draws}D</div>
+        </div>
+      `;
+      if (!stats.history.length) {
+        el.innerHTML += `<p style="text-align:center;color:var(--color-primary);opacity:0.5;font-size:0.875rem;margin-top:16px">No matches yet.</p>`;
+        return;
+      }
+      el.innerHTML += stats.history.map(h => {
+        const d = new Date(h.date).toLocaleDateString();
+        const delta = h.eloDelta >= 0 ? `+${h.eloDelta}` : `${h.eloDelta}`;
+        const col = h.result === 'win' ? '#4ade80' : h.result === 'lose' ? '#f87171' : '#e6b84d';
+        const badge = h.isChallenge ? ` <span style="color:#ffd700;font-size:0.7rem;">[C]</span>` : '';
+        return `<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--color-shadow);font-family:'VT323',monospace;">
+          <span style="color:${col};width:44px;text-transform:uppercase;">${h.result}${badge}</span>
+          <span style="flex:1;color:#fff;">ELO: ${h.elo}</span>
+          <span style="color:${col};width:36px;text-align:right;">${delta}</span>
+          <span style="color:rgba(255,255,255,0.35);font-size:0.75rem;margin-left:6px;">${escHtml(d)}</span>
+        </div>`;
+      }).join('');
+    }
+    function renderPatchNotes() {
+      const el = document.getElementById('pn-list');
+      el.innerHTML = PATCH_NOTES.map(p => `
+        <div>
+          <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:4px">
+            <span style="color:var(--color-glow);font-weight:bold">${escHtml(p.v)}</span>
+            <span style="color:var(--color-primary);opacity:0.6;font-size:10px">${escHtml(p.date)}</span>
+          </div>
+          <ul style="margin:0;padding:0;list-style:none">
+            ${p.notes.map(n => `<li style="color:#d1d5db">• ${escHtml(n)}</li>`).join('')}
+          </ul>
+        </div>`).join('');
+    }
+    const START_PANELS = ['main','challenge','howtoplay','highscores','patchnotes','settings'];
+    function showStartPanel(name, fromPopstate=false) {
+      START_PANELS.forEach(p => {
+        const el = document.getElementById('start-'+p);
+        if (el) el.classList.toggle('hidden', p !== name);
+      });
+      if (name === 'highscores') renderHighScores();
+      if (name === 'patchnotes') renderPatchNotes();
+      if (!fromPopstate && name !== 'main') history.pushState({ panel: name }, document.title);
+    }
+    window.addEventListener('popstate', function(e) {
+      const ov = document.getElementById('start-overlay');
+      if (ov && !ov.classList.contains('hidden')) showStartPanel('main', true);
+    });
+
+    // ─── AUDIO ───────────────────────────────────────────────────────────────
+    let _ac = null, _masterGain = null, _pendingVolume = 1.0;
+    let sfxEnabled = true;
+    function _getAC() {
+      if (!_ac) {
+        _ac = new (window.AudioContext || window.webkitAudioContext)();
+        _masterGain = _ac.createGain();
+        _masterGain.gain.value = _pendingVolume;
+        _masterGain.connect(_ac.destination);
+      }
+      if (_ac.state === 'suspended') _ac.resume();
+      return _ac;
+    }
+    function _tone(freq, type, vol, attack, sustain, release, delay=0) {
+      if (!sfxEnabled) return;
+      const ac = _getAC();
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = type; o.frequency.value = freq;
+      g.gain.setValueAtTime(0, ac.currentTime + delay);
+      g.gain.linearRampToValueAtTime(vol, ac.currentTime + delay + attack);
+      g.gain.setValueAtTime(vol, ac.currentTime + delay + attack + sustain);
+      g.gain.linearRampToValueAtTime(0, ac.currentTime + delay + attack + sustain + release);
+      o.connect(g); g.connect(_masterGain);
+      o.start(ac.currentTime + delay);
+      o.stop(ac.currentTime + delay + attack + sustain + release + 0.01);
+    }
+    function updateVolume(val) {
+      document.getElementById('vol-val').innerText = val + '%';
+      _pendingVolume = val / 100;
+      if (_masterGain) _masterGain.gain.value = _pendingVolume;
+    }
+    function toggleSFX() {
+      sfxEnabled = !sfxEnabled;
+      document.getElementById('sfx-toggle').innerText = sfxEnabled ? 'ON' : 'OFF';
+    }
+    const SFX = {
+      card()  { _tone(700, 'sine', 0.07, 0.002, 0.015, 0.05); },
+      place() { _tone(500, 'sine', 0.06, 0.002, 0.01, 0.07); },
+      hit()   { _tone(900, 'sine', 0.06, 0.001, 0.01, 0.04); },
+      bust()  { _tone(220, 'sawtooth', 0.1, 0.005, 0.06, 0.18); _tone(160, 'sawtooth', 0.08, 0.005, 0.06, 0.2, 0.18); },
+      win()   { _tone(523,'sine',0.1,0.01,0.08,0.15); _tone(659,'sine',0.1,0.01,0.08,0.15,0.14); _tone(784,'sine',0.1,0.01,0.1,0.25,0.28); },
+      lose()  { _tone(350,'sine',0.1,0.01,0.1,0.2); _tone(260,'sine',0.08,0.01,0.1,0.3,0.22); },
+      draw()  { _tone(440,'triangle',0.07,0.01,0.15,0.2); },
+    };
+
+    // ─── ELO ─────────────────────────────────────────────────────────────────
+    const HOUSE_ELO = 1200;
+    const K_FACTOR  = 32;
+    function calcEloDelta(playerElo, result) {
+      const expected = 1 / (1 + Math.pow(10, (HOUSE_ELO - playerElo) / 400));
+      return Math.round(K_FACTOR * (result - expected));
+    }
+
+    // ─── DECK ─────────────────────────────────────────────────────────────────
+    function createDeck() {
+      const suits = ['♠','♥','♦','♣'];
+      const vals  = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+      const deck = [];
+      for (const s of suits) for (const v of vals) deck.push({ suit: s, value: v });
+      return deck;
+    }
+    function shuffleDeck(d) {
+      for (let i = d.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [d[i], d[j]] = [d[j], d[i]];
+      }
+      return d;
+    }
+    function handVal(cards) {
+      let total = 0, aces = 0;
+      for (const c of cards) {
+        if (c.value === 'A')                           { aces++; total += 11; }
+        else if (['J','Q','K'].includes(c.value))      total += 10;
+        else                                           total += parseInt(c.value);
+      }
+      while (total > 21 && aces > 0) { total -= 10; aces--; }
+      return total;
+    }
+    function isBJ(cards) { return cards.length === 2 && handVal(cards) === 21; }
+
+    function cardHTML(card) {
+      const red = ['♥','♦'].includes(card.suit);
+      return `<div class="card ${red?'card-red':'card-black'}">
+        <div class="card-tl">${card.value}<br>${card.suit}</div>
+        <div class="card-center">${card.suit}</div>
+        <div class="card-br">${card.value}<br>${card.suit}</div>
+      </div>`;
+    }
+
+    // ─── GAME STATE ───────────────────────────────────────────────────────────
+    let liveDeck    = [];
+    let playerCards = [];          // all 6 player cards
+    let dealerCards = [];          // all 6 dealer cards
+    let playerHands = [[undefined,undefined],[undefined,undefined],[undefined,undefined]];
+    let dealerHands = [[],[],[]];  // indices into dealerCards
+    let playerHandCards = [[],[],[]];
+    let dealerHandCards = [[],[],[]];
+    let playerPool  = [];          // indices of unplaced cards (into playerCards)
+    let selectedPoolIdx = -1;
+    let currentHand = 0;
+    let handResults = [null,null,null];
+    let playerWins  = 0;
+    let dealerWins  = 0;
+
+    function initGame() {
+      liveDeck     = shuffleDeck(createDeck());
+      playerCards  = liveDeck.splice(0, 6);
+      dealerCards  = liveDeck.splice(0, 6);
+
+      playerPool    = [0,1,2,3,4,5];
+      playerHands   = [[undefined,undefined],[undefined,undefined],[undefined,undefined]];
+      dealerHands   = assignDealerHands();
+      dealerHandCards = [
+        [dealerCards[dealerHands[0][0]], dealerCards[dealerHands[0][1]]],
+        [dealerCards[dealerHands[1][0]], dealerCards[dealerHands[1][1]]],
+        [dealerCards[dealerHands[2][0]], dealerCards[dealerHands[2][1]]],
+      ];
+      playerHandCards = [[],[],[]];
+      selectedPoolIdx = -1;
+      currentHand  = 0;
+      handResults  = [null,null,null];
+      playerWins   = 0;
+      dealerWins   = 0;
+
+      updateEloDisplay();
+      updateMatchDisplay();
+
+      document.getElementById('game-main').style.display = 'block';
+      document.getElementById('phase-placing').style.display = 'block';
+      document.getElementById('phase-playing').style.display = 'none';
+      document.getElementById('phase-results').style.display  = 'none';
+      renderPlacingPhase();
+    }
+
+    function assignDealerHands() {
+      const idx = [0,1,2,3,4,5];
+      for (let i = 5; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [idx[i], idx[j]] = [idx[j], idx[i]];
+      }
+      return [[idx[0],idx[1]], [idx[2],idx[3]], [idx[4],idx[5]]];
+    }
+
+    function updateEloDisplay() {
+      document.getElementById('elo-display').innerText = loadStats().elo;
+    }
+    function updateMatchDisplay() {
+      document.getElementById('match-display').innerText = `${playerWins} – ${dealerWins}`;
+    }
+
+    // ─── PLACING PHASE ────────────────────────────────────────────────────────
+    function renderPlacingPhase() {
+      renderSlots();
+      renderPool();
+      document.getElementById('deal-btn').style.display = playerPool.length === 0 ? 'inline-block' : 'none';
+    }
+
+    function renderSlots() {
+      const container = document.getElementById('slot-area');
+      container.innerHTML = '';
+      for (let h = 0; h < 3; h++) {
+        const hot = selectedPoolIdx >= 0;
+        const div = document.createElement('div');
+        div.className = `hand-group${hot ? ' slot-hot' : ''}`;
+        div.onclick = () => clickHandGroup(h);
+        let inner = `<div class="hand-label">Hand ${h+1}</div><div class="flex gap-2">`;
+        for (let s = 0; s < 2; s++) {
+          const cidx = playerHands[h][s];
+          if (cidx !== undefined) {
+            const c = playerCards[cidx];
+            const red = ['♥','♦'].includes(c.suit);
+            inner += `<div class="card-slot slot-filled" onclick="event.stopPropagation();unplaceCard(${h},${s})">
+              <div class="card ${red?'card-red':'card-black'}" style="width:54px;height:76px;">
+                <div class="card-tl">${c.value}<br>${c.suit}</div>
+                <div class="card-center">${c.suit}</div>
+                <div class="card-br">${c.value}<br>${c.suit}</div>
+              </div>
+            </div>`;
+          } else {
+            inner += `<div class="card-slot${hot ? ' slot-hot' : ''}">
+              <span style="color:rgba(201,149,42,0.35);font-size:1.4rem;">+</span>
+            </div>`;
+          }
+        }
+        inner += '</div>';
+        div.innerHTML = inner;
+        container.appendChild(div);
+      }
+    }
+
+    function renderPool() {
+      const container = document.getElementById('card-pool');
+      container.innerHTML = '';
+      playerPool.forEach((cardIdx, poolPos) => {
+        const div = document.createElement('div');
+        div.className = `card card-back${selectedPoolIdx === poolPos ? ' selected' : ''}`;
+        div.onclick = () => selectPoolCard(poolPos);
+        container.appendChild(div);
+      });
+    }
+
+    function selectPoolCard(poolPos) {
+      selectedPoolIdx = (selectedPoolIdx === poolPos) ? -1 : poolPos;
+      if (selectedPoolIdx >= 0) SFX.card();
+      renderPlacingPhase();
+    }
+
+    function clickHandGroup(h) {
+      if (selectedPoolIdx < 0) return;
+      for (let s = 0; s < 2; s++) {
+        if (playerHands[h][s] === undefined) {
+          placeCardInSlot(h, s);
+          return;
+        }
+      }
+    }
+
+    function placeCardInSlot(h, s) {
+      if (selectedPoolIdx < 0) return;
+      if (playerHands[h][s] !== undefined) return;
+      playerHands[h][s] = playerPool[selectedPoolIdx];
+      playerPool.splice(selectedPoolIdx, 1);
+      selectedPoolIdx = -1;
+      SFX.place();
+      renderPlacingPhase();
+    }
+
+    function unplaceCard(h, s) {
+      const cidx = playerHands[h][s];
+      if (cidx === undefined) return;
+      playerHands[h][s] = undefined;
+      playerPool.push(cidx);
+      selectedPoolIdx = -1;
+      renderPlacingPhase();
+    }
+
+    // ─── REVEAL + PLAY ────────────────────────────────────────────────────────
+    function revealAndPlay() {
+      playerHandCards = [
+        [playerCards[playerHands[0][0]], playerCards[playerHands[0][1]]],
+        [playerCards[playerHands[1][0]], playerCards[playerHands[1][1]]],
+        [playerCards[playerHands[2][0]], playerCards[playerHands[2][1]]],
+      ];
+      document.getElementById('phase-placing').style.display = 'none';
+      document.getElementById('phase-playing').style.display = 'block';
+      currentHand = 0;
+      renderPlayingHand();
+    }
+
+    // ─── PLAYING PHASE ────────────────────────────────────────────────────────
+    function renderPlayingHand() {
+      const h = currentHand;
+      document.getElementById('playing-label').innerText = `Hand ${h+1} of 3`;
+
+      const dCards = dealerHandCards[h];
+      const pCards = playerHandCards[h];
+      const dv = handVal(dCards);
+      const pv = handVal(pCards);
+
+      document.getElementById('dealer-cards-display').innerHTML = dCards.map(c => cardHTML(c)).join('');
+      const dEl = document.getElementById('dealer-val');
+      dEl.innerText = dv;
+      dEl.className = 'val-display' + (dv > 21 ? ' bust' : isBJ(dCards) ? ' bj' : '');
+
+      document.getElementById('player-cards-display').innerHTML = pCards.map(c => cardHTML(c)).join('');
+      const pEl = document.getElementById('player-val');
+      pEl.innerText = pv;
+      pEl.className = 'val-display' + (pv > 21 ? ' bust' : isBJ(pCards) ? ' bj' : '');
+
+      document.getElementById('hand-result-area').style.display = 'none';
+      document.getElementById('action-btns').style.display = 'flex';
+
+      // Auto-resolve blackjacks
+      const pBJ = isBJ(pCards);
+      const dBJ = isBJ(dCards);
+      if (pBJ || dBJ) {
+        document.getElementById('action-btns').style.display = 'none';
+        setTimeout(() => {
+          if (pBJ && dBJ)     resolveHand(h, 'draw');
+          else if (pBJ)       resolveHand(h, 'win');
+          else                resolveHand(h, 'lose');
+        }, 400);
+        return;
+      }
+      if (pv > 21) {
+        document.getElementById('action-btns').style.display = 'none';
+        setTimeout(() => resolveHand(h, 'lose'), 300);
+      }
+    }
+
+    function doHit() {
+      if (!liveDeck.length) return;
+      const card = liveDeck.shift();
+      playerHandCards[currentHand].push(card);
+      SFX.hit();
+      const pCards = playerHandCards[currentHand];
+      const pv = handVal(pCards);
+      document.getElementById('player-cards-display').innerHTML = pCards.map(c => cardHTML(c)).join('');
+      const pEl = document.getElementById('player-val');
+      pEl.innerText = pv;
+      if (pv > 21) {
+        pEl.className = 'val-display bust';
+        SFX.bust();
+        document.getElementById('action-btns').style.display = 'none';
+        setTimeout(() => resolveHand(currentHand, 'lose'), 500);
+      } else if (pv === 21) {
+        pEl.className = 'val-display';
+        setTimeout(doStand, 300);
+      }
+    }
+
+    function doStand() {
+      document.getElementById('action-btns').style.display = 'none';
+      runDealerPlay(currentHand);
+    }
+
+    function runDealerPlay(h) {
+      const dCards = dealerHandCards[h];
+      function step() {
+        const dv = handVal(dCards);
+        if (dv < 17 && liveDeck.length) {
+          dCards.push(liveDeck.shift());
+          const newDv = handVal(dCards);
+          document.getElementById('dealer-cards-display').innerHTML = dCards.map(c => cardHTML(c)).join('');
+          const dEl = document.getElementById('dealer-val');
+          dEl.innerText = newDv;
+          dEl.className = 'val-display' + (newDv > 21 ? ' bust' : '');
+          setTimeout(step, 420);
+        } else {
+          const pv = handVal(playerHandCards[h]);
+          const finalDv = handVal(dCards);
+          let result;
+          if      (finalDv > 21)        result = 'win';
+          else if (pv > finalDv)        result = 'win';
+          else if (pv < finalDv)        result = 'lose';
+          else                          result = 'draw';
+          setTimeout(() => resolveHand(h, result), 300);
+        }
+      }
+      setTimeout(step, 350);
+    }
+
+    function resolveHand(h, result) {
+      handResults[h] = result;
+      if (result === 'win')  { playerWins++; SFX.win(); }
+      else if (result === 'lose') { dealerWins++; SFX.lose(); }
+      else SFX.draw();
+      updateMatchDisplay();
+
+      const isBJWin = isBJ(playerHandCards[h]) && result === 'win';
+      const text    = isBJWin ? 'Blackjack!' : result === 'win' ? 'You Win' : result === 'lose' ? 'Dealer Wins' : 'Draw';
+      const color   = isBJWin ? '#ffd700' : result === 'win' ? '#4ade80' : result === 'lose' ? '#f87171' : '#e6b84d';
+
+      const ra = document.getElementById('hand-result-area');
+      const rt = document.getElementById('hand-result-text');
+      rt.innerText = text;
+      rt.style.color = color;
+      ra.style.display = 'block';
+
+      const nb = document.getElementById('next-btn');
+      nb.innerText = h < 2 ? 'Next Hand →' : 'See Results →';
+    }
+
+    function nextHand() {
+      currentHand++;
+      if (currentHand > 2) {
+        showResults();
+      } else {
+        document.getElementById('hand-result-area').style.display = 'none';
+        renderPlayingHand();
+      }
+    }
+
+    // ─── RESULTS ─────────────────────────────────────────────────────────────
+    function showResults() {
+      document.getElementById('phase-playing').style.display = 'none';
+      document.getElementById('phase-results').style.display = 'block';
+
+      const matchResult = playerWins >= 2 ? 'win' : dealerWins >= 2 ? 'lose' : 'draw';
+      const winnerText  = matchResult === 'win' ? 'You Win!' : matchResult === 'lose' ? 'Dealer Wins' : 'Draw';
+      const winnerColor = matchResult === 'win' ? '#4ade80' : matchResult === 'lose' ? '#f87171' : '#e6b84d';
+
+      document.getElementById('results-winner').innerText  = winnerText;
+      document.getElementById('results-winner').style.color = winnerColor;
+      document.getElementById('results-score').innerText   = `${playerWins} – ${dealerWins}`;
+
+      document.getElementById('results-breakdown').innerHTML = handResults.map((r, i) => {
+        const pv = handVal(playerHandCards[i]);
+        const dv = handVal(dealerHandCards[i]);
+        const isBJW = isBJ(playerHandCards[i]) && r === 'win';
+        const col = r === 'win' ? '#4ade80' : r === 'lose' ? '#f87171' : '#e6b84d';
+        const rText = isBJW ? 'BJ' : r.toUpperCase();
+        return `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;
+                             background:rgba(0,0,0,0.3);border-radius:4px;font-family:'VT323',monospace;">
+          <span style="color:rgba(201,149,42,0.7);width:56px;flex-shrink:0;">HAND ${i+1}</span>
+          <span style="flex:1;color:#ddd;">You ${pv}${isBJW?' ★':''} vs Dealer ${dv}</span>
+          <span style="color:${col};font-size:1.1rem;flex-shrink:0;">${rText}</span>
+        </div>`;
+      }).join('');
+
+      const stats    = loadStats();
+      const eloScore = matchResult === 'win' ? 1 : matchResult === 'lose' ? 0 : 0.5;
+      const eloDelta = calcEloDelta(stats.elo, eloScore);
+      const newElo   = saveGame(matchResult, eloDelta);
+
+      const dStr  = eloDelta >= 0 ? `+${eloDelta}` : `${eloDelta}`;
+      const dCol  = eloDelta >= 0 ? '#4ade80' : '#f87171';
+      document.getElementById('elo-result').innerHTML = `
+        <div style="font-size:0.85rem;color:rgba(201,149,42,0.7);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
+        <div style="font-size:2rem;color:var(--color-glow);line-height:1.1;">${newElo}</div>
+        <div style="font-size:1.2rem;color:${dCol};">${dStr}</div>`;
+
+      document.getElementById('elo-display').innerText = newElo;
+      document.getElementById('share-btn').onclick = copyShareText;
+
+      if (matchResult === 'win') SFX.win();
+      else if (matchResult === 'lose') SFX.lose();
+      else SFX.draw();
+    }
+
+    // ─── START ────────────────────────────────────────────────────────────────
+    function startGame(fromChallenge=false) {
+      document.getElementById('start-overlay').classList.add('hidden');
+      if (!fromChallenge) {
+        challengeSeed = generateSeed();
+        rng = mulberry32(parseInt(challengeSeed, 16));
+        isChallengeMode = false;
+      }
+      initGame();
+    }
+
+    window.onload = function() { updateEloDisplay(); };
+  </script>
+</body>
+</html>
