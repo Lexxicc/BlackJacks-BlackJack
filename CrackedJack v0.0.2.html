@@ -948,6 +948,7 @@
     // ─── START ────────────────────────────────────────────────────────────────
     function startGame(fromChallenge=false) {
       document.getElementById('start-overlay').classList.add('hidden');
+      history.pushState({ panel: 'game' }, '');
       if (!fromChallenge) {
         challengeSeed = generateSeed();
         rng = mulberry32(parseInt(challengeSeed, 16));
