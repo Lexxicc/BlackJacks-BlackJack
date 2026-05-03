@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>CrackedJack v0.0.2</title>
+  <title>CrackedJack v0.0.3</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -25,7 +25,7 @@
                   0 0 28px 4px rgba(201,149,42,0.28),
                   0 0 70px rgba(201,149,42,0.12),
                   inset 0 0 40px rgba(0,0,0,0.45);
-      width: 640px; max-width: 92vw; max-height: 92vh;
+      width: 640px; max-width: 92vw; max-height: 92dvh;
       overflow-y: auto; scrollbar-width: none;
     }
     .menu-scroll::-webkit-scrollbar { display: none; }
@@ -182,7 +182,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.2</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.3</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -395,11 +395,12 @@
       <div class="flex gap-3 justify-center pb-6">
         <button class="btn-action" id="share-btn">Share</button>
         <button class="btn-action" onclick="initGame()">Play Again</button>
+        <button class="btn-action" onclick="document.getElementById('phase-results').style.display='none'; document.getElementById('start-overlay').classList.remove('hidden'); showStartPanel('main');">Main Menu</button>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.2</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.3</p>
   </div>
 
   <script>
@@ -467,6 +468,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.3', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.2', date:'2026-05', notes:['Fixed main menu title overflow on small screens.', 'Reduced card and slot sizes in placing phase to fit mobile screens.'] },
       { v:'v0.0.1', date:'2026-05', notes:['Initial release. Three-hand blackjack. Blind card placement. ELO ranking system.'] },
     ];
