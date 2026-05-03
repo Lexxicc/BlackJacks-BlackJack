@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>CrackedJack v0.0.3</title>
+  <title>CrackedJack v0.0.4</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -25,7 +25,7 @@
                   0 0 28px 4px rgba(201,149,42,0.28),
                   0 0 70px rgba(201,149,42,0.12),
                   inset 0 0 40px rgba(0,0,0,0.45);
-      width: 640px; max-width: 92vw; max-height: 92dvh;
+      width: 640px; max-width: 92vw; height: 92dvh; max-height: 92dvh;
       overflow-y: auto; scrollbar-width: none;
     }
     .menu-scroll::-webkit-scrollbar { display: none; }
@@ -182,7 +182,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.3</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.4</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -337,7 +337,8 @@
       <div class="text-center mb-2" style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Your Cards</div>
       <div class="flex gap-2 justify-center flex-wrap mb-4" id="card-pool"></div>
 
-      <div class="text-center mt-3 pb-4">
+      <div class="text-center mt-3 pb-4 flex gap-3 justify-center">
+        <button id="place-all-btn" class="btn-action" onclick="placeAllRandomly()">Place All</button>
         <button id="deal-btn" class="btn-action" style="display:none;" onclick="revealAndPlay()">Reveal &amp; Play →</button>
       </div>
     </div>
@@ -468,6 +469,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.4', date:'2026-05', notes:['Mobile viewport fix — menu now fills screen height on mobile.', 'Double-tap a card in the placing phase to place it at random.', 'Added Place All button — places all remaining cards randomly.'] },
       { v:'v0.0.3', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.2', date:'2026-05', notes:['Fixed main menu title overflow on small screens.', 'Reduced card and slot sizes in placing phase to fit mobile screens.'] },
       { v:'v0.0.1', date:'2026-05', notes:['Initial release. Three-hand blackjack. Blind card placement. ELO ranking system.'] },
@@ -681,7 +683,9 @@
     function renderPlacingPhase() {
       renderSlots();
       renderPool();
-      document.getElementById('deal-btn').style.display = playerPool.length === 0 ? 'inline-block' : 'none';
+      const allPlaced = playerPool.length === 0;
+      document.getElementById('deal-btn').style.display = allPlaced ? 'inline-block' : 'none';
+      document.getElementById('place-all-btn').style.display = allPlaced ? 'none' : 'inline-block';
     }
 
     function renderSlots() {
@@ -728,10 +732,50 @@
       });
     }
 
+    let lastTapPoolPos = -1;
+    let lastTapTime = 0;
+
     function selectPoolCard(poolPos) {
+      const now = Date.now();
+      if (poolPos === lastTapPoolPos && now - lastTapTime < 300) {
+        lastTapPoolPos = -1;
+        lastTapTime = 0;
+        selectedPoolIdx = poolPos;
+        placeCardRandomly();
+        return;
+      }
+      lastTapPoolPos = poolPos;
+      lastTapTime = now;
       selectedPoolIdx = (selectedPoolIdx === poolPos) ? -1 : poolPos;
       if (selectedPoolIdx >= 0) SFX.card();
       renderPlacingPhase();
+    }
+
+    function placeCardRandomly() {
+      const emptySlots = [];
+      for (let h = 0; h < 3; h++) {
+        for (let s = 0; s < 2; s++) {
+          if (playerHands[h][s] === undefined) emptySlots.push([h, s]);
+        }
+      }
+      if (!emptySlots.length) return;
+      const [h, s] = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+      placeCardInSlot(h, s);
+    }
+
+    function placeAllRandomly() {
+      while (playerPool.length > 0) {
+        const emptySlots = [];
+        for (let h = 0; h < 3; h++) {
+          for (let s = 0; s < 2; s++) {
+            if (playerHands[h][s] === undefined) emptySlots.push([h, s]);
+          }
+        }
+        if (!emptySlots.length) break;
+        selectedPoolIdx = 0;
+        const [h, s] = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+        placeCardInSlot(h, s);
+      }
     }
 
     function clickHandGroup(h) {
