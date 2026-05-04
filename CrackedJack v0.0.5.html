@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>CrackedJack v0.0.4</title>
+  <title>Black Jack's BlackJack v0.0.5</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -163,12 +164,12 @@
           <h1 style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.8rem,7.5vw,5rem);
                       color:var(--color-glow);text-shadow:3px 3px 0 var(--color-shadow),0 0 20px rgba(201,149,42,0.5);
                       text-transform:uppercase;letter-spacing:0.07em;line-height:1.1;">
-            CrackedJack
+            Black Jack's BlackJack
           </h1>
         </div>
         <div class="flex items-center justify-center gap-3 mt-2">
           <div class="flex-grow h-px" style="background:linear-gradient(to right,transparent,var(--color-primary))"></div>
-          <span style="font-size:clamp(0.7rem,3vw,1rem);color:var(--color-primary);text-transform:uppercase;letter-spacing:0.15em;font-family:'VT323',monospace;">Three Hands. One Winner.</span>
+          <span style="font-size:clamp(0.7rem,3vw,1rem);color:var(--color-primary);text-transform:uppercase;letter-spacing:0.15em;font-family:'VT323',monospace;">Three Hands. Five Matches.</span>
           <div class="flex-grow h-px" style="background:linear-gradient(to left,transparent,var(--color-primary))"></div>
         </div>
       </div>
@@ -182,7 +183,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.4</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.5</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -230,11 +231,11 @@
       <div class="p-5 text-sm space-y-4" style="font-family:'VT323',monospace;color:#d1d5db;">
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
           <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Setup</p>
-          <p style="line-height:1.6">You're dealt 6 face-down cards. Tap a card to select it, then tap a hand slot to place it. Build 3 hands of 2 cards each.</p>
+          <p style="line-height:1.6">You're dealt 7 face-up cards. Tap a card to select it, then tap a hand slot to place it. Choose 6 cards to build 3 hands of 2 cards each — the 7th is discarded.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
-          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Twist</p>
-          <p style="line-height:1.6">You don't know what cards you're placing — they're face down. The dealer's 6 cards are split randomly into 3 hands. No peeking.</p>
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Strategy</p>
+          <p style="line-height:1.6">You can see all 7 cards. Choose wisely — which 6 you keep and where you place them is the whole game. The dealer's 6 cards are split randomly into 3 hands.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
           <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Playing</p>
@@ -242,7 +243,7 @@
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
           <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Winning</p>
-          <p style="line-height:1.6">Best 2 hands out of 3 wins the match. Your ELO rating goes up or down based on the result.</p>
+          <p style="line-height:1.6">Best 2 hands out of 3 wins a match. Win 3 matches to win the series (best of 5). Your ELO rating goes up or down based on the final series result.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
           <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">ELO</p>
@@ -314,9 +315,9 @@
         <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
         <div id="elo-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">1200</div>
       </div>
-      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--color-glow);opacity:0.7;">CrackedJack</div>
+      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--color-glow);opacity:0.7;">Black Jack's BlackJack</div>
       <div class="text-right">
-        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Match</div>
+        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Series</div>
         <div id="match-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">0 – 0</div>
       </div>
     </div>
@@ -347,6 +348,7 @@
     <div id="phase-playing" style="display:none;padding:12px 4px;">
       <div class="text-center mb-3">
         <div id="playing-label" style="font-family:'VT323',monospace;font-size:1.2rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Hand 1 of 3</div>
+        <div id="match-score-display" style="font-family:'VT323',monospace;font-size:0.9rem;color:rgba(201,149,42,0.55);margin-top:2px;">Match: 0 – 0</div>
       </div>
 
       <!-- DEALER -->
@@ -393,15 +395,18 @@
 
       <div id="elo-result" class="text-center mb-4 py-3" style="font-family:'VT323',monospace;border:2px solid rgba(201,149,42,0.3);background:rgba(0,0,0,0.3);"></div>
 
-      <div class="flex gap-3 justify-center pb-6">
+      <div class="flex gap-3 justify-center pb-4" id="next-match-area" style="display:none;">
+        <button class="btn-action" onclick="initMatch()">Next Match →</button>
+      </div>
+      <div class="flex gap-3 justify-center pb-6" id="series-end-area">
         <button class="btn-action" id="share-btn">Share</button>
-        <button class="btn-action" onclick="initGame()">Play Again</button>
+        <button class="btn-action" onclick="initSeries()">Play Again</button>
         <button class="btn-action" onclick="document.getElementById('phase-results').style.display='none'; document.getElementById('start-overlay').classList.remove('hidden'); showStartPanel('main');">Main Menu</button>
       </div>
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.3</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.5</p>
   </div>
 
   <script>
@@ -457,7 +462,7 @@
     function copyShareText() {
       if (!challengeSeed) challengeSeed = generateSeed();
       const stats = loadStats();
-      const text = `I'm rated ${stats.elo} ELO on CrackedJack! Challenge code: ${challengeSeed} — can you beat it?`;
+      const text = `I'm rated ${stats.elo} ELO on Black Jack's BlackJack! Challenge code: ${challengeSeed} — can you beat it?`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('share-btn');
         if (btn) { const old = btn.innerText; btn.innerText = 'Copied!'; setTimeout(() => btn.innerText = old, 2000); }
@@ -469,6 +474,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.5', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.4', date:'2026-05', notes:['Mobile viewport fix — menu now fills screen height on mobile.', 'Double-tap a card in the placing phase to place it at random.', 'Added Place All button — places all remaining cards randomly.'] },
       { v:'v0.0.3', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.2', date:'2026-05', notes:['Fixed main menu title overflow on small screens.', 'Reduced card and slot sizes in placing phase to fit mobile screens.'] },
@@ -619,8 +625,10 @@
     }
 
     // ─── GAME STATE ───────────────────────────────────────────────────────────
+    const SERIES_TARGET = 3;
+    const MAX_MATCHES   = 5;
     let liveDeck    = [];
-    let playerCards = [];          // all 6 player cards
+    let playerCards = [];          // all 7 player cards
     let dealerCards = [];          // all 6 dealer cards
     let playerHands = [[undefined,undefined],[undefined,undefined],[undefined,undefined]];
     let dealerHands = [[],[],[]];  // indices into dealerCards
@@ -632,13 +640,24 @@
     let handResults = [null,null,null];
     let playerWins  = 0;
     let dealerWins  = 0;
+    let playerSeriesWins = 0;
+    let dealerSeriesWins = 0;
+    let matchNumber = 0;
 
-    function initGame() {
+    function initSeries() {
+      playerSeriesWins = 0;
+      dealerSeriesWins = 0;
+      matchNumber = 0;
+      initMatch();
+    }
+
+    function initMatch() {
+      matchNumber++;
       liveDeck     = shuffleDeck(createDeck());
-      playerCards  = liveDeck.splice(0, 6);
+      playerCards  = liveDeck.splice(0, 7);
       dealerCards  = liveDeck.splice(0, 6);
 
-      playerPool    = [0,1,2,3,4,5];
+      playerPool    = [0,1,2,3,4,5,6];
       playerHands   = [[undefined,undefined],[undefined,undefined],[undefined,undefined]];
       dealerHands   = assignDealerHands();
       dealerHandCards = [
@@ -654,7 +673,7 @@
       dealerWins   = 0;
 
       updateEloDisplay();
-      updateMatchDisplay();
+      updateSeriesDisplay();
 
       document.getElementById('game-main').style.display = 'block';
       document.getElementById('phase-placing').style.display = 'block';
@@ -675,15 +694,19 @@
     function updateEloDisplay() {
       document.getElementById('elo-display').innerText = loadStats().elo;
     }
-    function updateMatchDisplay() {
-      document.getElementById('match-display').innerText = `${playerWins} – ${dealerWins}`;
+    function updateSeriesDisplay() {
+      document.getElementById('match-display').innerText = `${playerSeriesWins} – ${dealerSeriesWins}`;
+    }
+    function updateHandDisplay() {
+      const el = document.getElementById('match-score-display');
+      if (el) el.innerText = `Match: ${playerWins} – ${dealerWins}`;
     }
 
     // ─── PLACING PHASE ────────────────────────────────────────────────────────
     function renderPlacingPhase() {
       renderSlots();
       renderPool();
-      const allPlaced = playerPool.length === 0;
+      const allPlaced = playerPool.length <= 1;
       document.getElementById('deal-btn').style.display = allPlaced ? 'inline-block' : 'none';
       document.getElementById('place-all-btn').style.display = allPlaced ? 'none' : 'inline-block';
     }
@@ -725,9 +748,12 @@
       const container = document.getElementById('card-pool');
       container.innerHTML = '';
       playerPool.forEach((cardIdx, poolPos) => {
+        const c = playerCards[cardIdx];
+        const red = ['♥','♦'].includes(c.suit);
         const div = document.createElement('div');
-        div.className = `card card-back${selectedPoolIdx === poolPos ? ' selected' : ''}`;
+        div.className = `card ${red ? 'card-red' : 'card-black'}${selectedPoolIdx === poolPos ? ' selected' : ''}`;
         div.onclick = () => selectPoolCard(poolPos);
+        div.innerHTML = `<div class="card-tl">${c.value}<br>${c.suit}</div><div class="card-center">${c.suit}</div><div class="card-br">${c.value}<br>${c.suit}</div>`;
         container.appendChild(div);
       });
     }
@@ -823,7 +849,8 @@
     // ─── PLAYING PHASE ────────────────────────────────────────────────────────
     function renderPlayingHand() {
       const h = currentHand;
-      document.getElementById('playing-label').innerText = `Hand ${h+1} of 3`;
+      document.getElementById('playing-label').innerText = `Match ${matchNumber} · Hand ${h+1} of 3`;
+      updateHandDisplay();
 
       const dCards = dealerHandCards[h];
       const pCards = playerHandCards[h];
@@ -918,7 +945,7 @@
       if (result === 'win')  { playerWins++; SFX.win(); }
       else if (result === 'lose') { dealerWins++; SFX.lose(); }
       else SFX.draw();
-      updateMatchDisplay();
+      updateHandDisplay();
 
       const isBJWin = isBJ(playerHandCards[h]) && result === 'win';
       const text    = isBJWin ? 'Blackjack!' : result === 'win' ? 'You Win' : result === 'lose' ? 'Dealer Wins' : 'Draw';
@@ -950,12 +977,23 @@
       document.getElementById('phase-results').style.display = 'block';
 
       const matchResult = playerWins >= 2 ? 'win' : dealerWins >= 2 ? 'lose' : 'draw';
-      const winnerText  = matchResult === 'win' ? 'You Win!' : matchResult === 'lose' ? 'Dealer Wins' : 'Draw';
-      const winnerColor = matchResult === 'win' ? '#4ade80' : matchResult === 'lose' ? '#f87171' : '#e6b84d';
 
-      document.getElementById('results-winner').innerText  = winnerText;
-      document.getElementById('results-winner').style.color = winnerColor;
-      document.getElementById('results-score').innerText   = `${playerWins} – ${dealerWins}`;
+      if (matchResult === 'win') playerSeriesWins++;
+      else if (matchResult === 'lose') dealerSeriesWins++;
+
+      updateSeriesDisplay();
+
+      const seriesOver = playerSeriesWins >= SERIES_TARGET || dealerSeriesWins >= SERIES_TARGET || matchNumber >= MAX_MATCHES;
+      const seriesResult = playerSeriesWins > dealerSeriesWins ? 'win' : dealerSeriesWins > playerSeriesWins ? 'lose' : 'draw';
+
+      const matchWinnerText  = matchResult === 'win' ? 'Match Won!' : matchResult === 'lose' ? 'Match Lost' : 'Match Drawn';
+      const matchWinnerColor = matchResult === 'win' ? '#4ade80' : matchResult === 'lose' ? '#f87171' : '#e6b84d';
+      const seriesWinnerText  = seriesResult === 'win' ? 'Series Won!' : seriesResult === 'lose' ? 'Series Lost' : 'Series Draw';
+      const seriesWinnerColor = seriesResult === 'win' ? '#4ade80' : seriesResult === 'lose' ? '#f87171' : '#e6b84d';
+
+      document.getElementById('results-winner').innerText   = seriesOver ? seriesWinnerText : matchWinnerText;
+      document.getElementById('results-winner').style.color = seriesOver ? seriesWinnerColor : matchWinnerColor;
+      document.getElementById('results-score').innerText    = `Series ${playerSeriesWins} – ${dealerSeriesWins}`;
 
       document.getElementById('results-breakdown').innerHTML = handResults.map((r, i) => {
         const pv = handVal(playerHandCards[i]);
@@ -971,24 +1009,34 @@
         </div>`;
       }).join('');
 
-      const stats    = loadStats();
-      const eloScore = matchResult === 'win' ? 1 : matchResult === 'lose' ? 0 : 0.5;
-      const eloDelta = calcEloDelta(stats.elo, eloScore);
-      const newElo   = saveGame(matchResult, eloDelta);
+      document.getElementById('next-match-area').style.display = seriesOver ? 'none' : 'flex';
+      document.getElementById('series-end-area').style.display = seriesOver ? 'flex' : 'none';
+      document.getElementById('elo-result').style.display = seriesOver ? 'block' : 'none';
 
-      const dStr  = eloDelta >= 0 ? `+${eloDelta}` : `${eloDelta}`;
-      const dCol  = eloDelta >= 0 ? '#4ade80' : '#f87171';
-      document.getElementById('elo-result').innerHTML = `
-        <div style="font-size:0.85rem;color:rgba(201,149,42,0.7);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
-        <div style="font-size:2rem;color:var(--color-glow);line-height:1.1;">${newElo}</div>
-        <div style="font-size:1.2rem;color:${dCol};">${dStr}</div>`;
+      if (seriesOver) {
+        const stats    = loadStats();
+        const eloScore = seriesResult === 'win' ? 1 : seriesResult === 'lose' ? 0 : 0.5;
+        const eloDelta = calcEloDelta(stats.elo, eloScore);
+        const newElo   = saveGame(seriesResult, eloDelta);
 
-      document.getElementById('elo-display').innerText = newElo;
-      document.getElementById('share-btn').onclick = copyShareText;
+        const dStr  = eloDelta >= 0 ? `+${eloDelta}` : `${eloDelta}`;
+        const dCol  = eloDelta >= 0 ? '#4ade80' : '#f87171';
+        document.getElementById('elo-result').innerHTML = `
+          <div style="font-size:0.85rem;color:rgba(201,149,42,0.7);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
+          <div style="font-size:2rem;color:var(--color-glow);line-height:1.1;">${newElo}</div>
+          <div style="font-size:1.2rem;color:${dCol};">${dStr}</div>`;
 
-      if (matchResult === 'win') SFX.win();
-      else if (matchResult === 'lose') SFX.lose();
-      else SFX.draw();
+        document.getElementById('elo-display').innerText = newElo;
+        document.getElementById('share-btn').onclick = copyShareText;
+
+        if (seriesResult === 'win') SFX.win();
+        else if (seriesResult === 'lose') SFX.lose();
+        else SFX.draw();
+      } else {
+        if (matchResult === 'win') SFX.win();
+        else if (matchResult === 'lose') SFX.lose();
+        else SFX.draw();
+      }
     }
 
     // ─── START ────────────────────────────────────────────────────────────────
@@ -1000,7 +1048,7 @@
         rng = mulberry32(parseInt(challengeSeed, 16));
         isChallengeMode = false;
       }
-      initGame();
+      initSeries();
     }
 
     window.onload = function() { updateEloDisplay(); };
