@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.7</title>
+  <title>Black Jack's BlackJack v0.0.8</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -223,7 +223,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.7</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.8</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -488,7 +488,7 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.7</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.8</p>
   </div>
 
   <script>
@@ -556,6 +556,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.8', date:'2026-05', notes:['placeCardRandomly and placeAllRandomly now use seeded rng — card placement in challenge mode is reproducible.'] },
       { v:'v0.0.7', date:'2026-05', notes:['J. Black dealer avatar added to start menu and playing phase.'] },
       { v:'v0.0.6', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.5', date:'2026-05', notes:['Version bump.'] },
@@ -869,7 +870,7 @@
         }
       }
       if (!emptySlots.length) return;
-      const [h, s] = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+      const [h, s] = emptySlots[Math.floor(rng() * emptySlots.length)];
       placeCardInSlot(h, s);
     }
 
@@ -883,7 +884,7 @@
         }
         if (!emptySlots.length) break;
         selectedPoolIdx = 0;
-        const [h, s] = emptySlots[Math.floor(Math.random() * emptySlots.length)];
+        const [h, s] = emptySlots[Math.floor(rng() * emptySlots.length)];
         placeCardInSlot(h, s);
       }
     }
