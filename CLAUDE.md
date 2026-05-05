@@ -11,7 +11,8 @@
 - Single-file HTML — no build step
 
 ## localStorage
-- `CrackedJack_stats` — player stats (ELO, match history)
+
+- `BJ_stats` — player stats (ELO, match history)
 
 ## Colour palette
 - `#0b1a10` — dark background
@@ -28,6 +29,6 @@
 
 ## Notes
 - GitHub repo is named `CrackedJack` (original working title) — game is now Black Jack's BlackJack
-- `CrackedJack_stats` key uses the old name — changing it would wipe existing player data
+- localStorage key migrated from `CrackedJack_stats` to `BJ_stats`
 - Dealer character is J. Black — dark complexion, curly salt-and-pepper hair, burgundy bow tie, ornate waistcoat
 - Game format: 3 hands per match, best-of-5 matches per series, ELO rating system

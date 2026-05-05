@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.9</title>
+  <title>Black Jack's BlackJack v0.0.10</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -64,6 +64,7 @@
       color: #fff;
       min-height: 100vh; min-height: 100dvh;
       margin: 0;
+      overscroll-behavior: none;
       padding-top: env(safe-area-inset-top, 0px);
       padding-bottom: env(safe-area-inset-bottom, 0px);
       padding-left: env(safe-area-inset-left, 0px);
@@ -499,13 +500,13 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.9</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.10</p>
   </div>
 
   <script>
 
     // ─── STATS ───────────────────────────────────────────────────────────────
-    const STATS_KEY = 'CrackedJack_stats';
+    const STATS_KEY = 'BJ_stats';
     function loadStats() {
       return JSON.parse(localStorage.getItem(STATS_KEY) || '{"elo":1200,"gamesPlayed":0,"wins":0,"losses":0,"draws":0,"history":[]}');
     }
@@ -565,7 +566,8 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
-      { v:'v0.0.9', date:'2026-05', notes:['Version bump.'] },
+      { v:'v0.0.10', date:'2026-05', notes:['Mobile optimisation: added overscroll-behavior: none; localStorage key standardised to BJ prefix.'] },
+    { v:'v0.0.9', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.8', date:'2026-05', notes:['placeCardRandomly and placeAllRandomly now use seeded rng — card placement in challenge mode is reproducible.'] },
       { v:'v0.0.7', date:'2026-05', notes:['J. Black dealer avatar added to start menu and playing phase.'] },
       { v:'v0.0.6', date:'2026-05', notes:['Version bump.'] },
