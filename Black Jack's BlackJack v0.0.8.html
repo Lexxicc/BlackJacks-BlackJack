@@ -340,6 +340,17 @@
                            box-shadow:inset -2px -2px 0px var(--color-shadow);cursor:pointer;">ON</button>
           </div>
         </div>
+        <div>
+          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;font-size:0.875rem;border-bottom:1px solid var(--color-shadow);padding-bottom:8px;margin-bottom:16px;letter-spacing:0.1em">Display</h3>
+          <div class="flex items-center justify-between py-2">
+            <span style="color:#d1d5db">Brightness</span>
+            <div class="flex items-center gap-3">
+              <input type="range" id="brightness-slider" min="20" max="150" value="100" oninput="updateBrightness(this.value)"
+                     style="accent-color:var(--color-primary);width:120px">
+              <span id="brightness-label" style="color:var(--color-glow);width:40px;text-align:right">100%</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="subpanel-footer"></div>
     </div>
@@ -481,7 +492,7 @@
         <button class="btn-action" onclick="initMatch()">Next Match →</button>
       </div>
       <div class="flex gap-3 justify-center pb-6" id="series-end-area">
-        <button class="btn-action" id="share-btn">Share</button>
+        <button class="btn-action" id="share-btn">Challenge Code</button>
         <button class="btn-action" onclick="initSeries()">Play Again</button>
         <button class="btn-action" onclick="document.getElementById('phase-results').style.display='none'; document.getElementById('start-overlay').classList.remove('hidden'); showStartPanel('main');">Main Menu</button>
       </div>
@@ -492,8 +503,6 @@
   </div>
 
   <script>
-    // ─── WIPE GUARD ──────────────────────────────────────────────────────────
-    (function(){ var k='CrackedJack_wipe_v1'; if(localStorage.getItem(k)!=='1'){ localStorage.removeItem('CrackedJack_stats'); localStorage.setItem(k,'1'); } })();
 
     // ─── STATS ───────────────────────────────────────────────────────────────
     const STATS_KEY = 'CrackedJack_stats';
@@ -654,6 +663,11 @@
     function toggleSFX() {
       sfxEnabled = !sfxEnabled;
       document.getElementById('sfx-toggle').innerText = sfxEnabled ? 'ON' : 'OFF';
+    }
+    function updateBrightness(v) {
+      document.body.style.filter = 'brightness(' + (parseInt(v) / 100) + ')';
+      var label = document.getElementById('brightness-label');
+      if (label) label.textContent = v + '%';
     }
     const SFX = {
       card()  { _tone(700, 'sine', 0.07, 0.002, 0.015, 0.05); },
