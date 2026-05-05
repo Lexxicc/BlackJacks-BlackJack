@@ -5,6 +5,13 @@
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>Black Jack's BlackJack v0.0.10</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#c9952a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BlackJack">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <script>if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');</script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
@@ -224,7 +231,7 @@
       </div>
       <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 16px;opacity:0.6;">
         <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.9</span>
+        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.11</span>
         <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
       </div>
     </div>
@@ -500,7 +507,7 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.10</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.11</p>
   </div>
 
   <script>
@@ -566,6 +573,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.11', date:'2026-05', notes:['PWA install support added.'] },
       { v:'v0.0.10', date:'2026-05', notes:['Mobile optimisation: added overscroll-behavior: none; localStorage key standardised to BJ prefix.'] },
     { v:'v0.0.9', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.8', date:'2026-05', notes:['placeCardRandomly and placeAllRandomly now use seeded rng — card placement in challenge mode is reproducible.'] },

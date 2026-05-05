@@ -1,0 +1,9 @@
+{
+  "name": "Black Jack's BlackJack",
+  "short_name": "BlackJack",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1a10",
+  "theme_color": "#c9952a",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
