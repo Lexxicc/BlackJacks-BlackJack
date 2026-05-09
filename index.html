@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.13</title>
+  <title>Black Jack's BlackJack v0.0.14</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#c9952a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,7 +25,7 @@
       --color-shadow:   #060e08;
     }
 
-    /* ── FRONT MENU ── */
+    /* ── FRONT MENU (SoT pattern — 5 zones, uniform 1.5vw padding+gap) ── */
     .menu-scroll {
       background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-panel) 45%, var(--color-panel) 55%, var(--color-bg-dark) 100%);
       border: 6px solid var(--color-primary);
@@ -33,20 +33,92 @@
                   0 0 28px 4px rgba(201,149,42,0.28),
                   0 0 70px rgba(201,149,42,0.12),
                   inset 0 0 40px rgba(0,0,0,0.45);
-      width: 640px; max-width: 92vw; height: auto; max-height: 94dvh;
+      width: 640px; max-width: 94vw;
+      height: calc(100dvh - 3.2vw); max-height: calc(100dvh - 3.2vw);
+      margin: 1.6vw;
       overflow-y: auto; scrollbar-width: none;
+      display: flex; flex-direction: column;
+      padding: 1.5vw; gap: 1.5vw; box-sizing: border-box;
     }
     .menu-scroll::-webkit-scrollbar { display: none; }
+
+    /* ── ZONE 1 — LOGO (flex/stretch — grows to fill leftover panel height) ── */
+    .logo-container {
+      flex: 1 1 auto;
+      min-height: calc(240px - 1.5vw);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .logo-container svg,
+    .logo-container img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    /* ── ZONE 2 — TAGLINE ── */
+    .tagline-container {
+      flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; padding: 8px 16px;
+    }
+    .tagline-line { flex: 1; height: 1px; }
+    .tagline-line.left  { background: linear-gradient(to right, transparent, var(--color-primary)); }
+    .tagline-line.right { background: linear-gradient(to left,  transparent, var(--color-primary)); }
+    .tagline-text {
+      font-family: 'VT323', monospace; font-size: 0.95rem;
+      color: var(--color-primary); text-transform: uppercase;
+      letter-spacing: 0.35em; white-space: nowrap;
+    }
+
+    /* ── ZONE 3 — BUTTONS ── */
+    .menu-buttons { flex: 0 0 auto; display: flex; flex-direction: column; }
     .start-menu-btn {
       display: flex; align-items: center; gap: 12px; width: 100%;
-      padding: 11px 24px; font-family: 'VT323', monospace; font-size: 1.4rem;
+      padding: 3vw 24px; font-family: 'VT323', monospace; font-size: 1.45rem;
       text-transform: uppercase; letter-spacing: 0.07em; color: var(--color-glow);
       background: transparent; border: none; border-bottom: 2px solid var(--color-shadow);
       cursor: pointer; text-shadow: 2px 2px 0 var(--color-shadow);
       text-align: left; transition: background 0.12s, padding-left 0.12s;
+      touch-action: manipulation;
     }
     .start-menu-btn:hover { background: rgba(201,149,42,0.10); color: #fff; padding-left: 28px; }
     .start-menu-btn:last-child { border-bottom: none; }
+    .start-menu-btn .arrow { margin-left: auto; font-size: 1rem; opacity: 0.4; font-family: sans-serif; }
+
+    /* ── ZONE 4 — CHALLENGE (inline) ── */
+    .challenge-container {
+      flex: 0 0 auto;
+      padding: 0.75vw 16px 8px;
+      border-top: 2px solid var(--color-shadow);
+    }
+    .challenge-label {
+      font-family: 'VT323', monospace; font-size: 0.75rem;
+      color: var(--color-primary); text-transform: uppercase;
+      letter-spacing: 0.15em; margin: 0 0 0.75vw 0;
+    }
+    .challenge-row { display: flex; gap: 8px; align-items: center; }
+    .challenge-input {
+      flex: 1; padding: 8px 10px; background: var(--color-panel);
+      border: 2px solid var(--color-primary); color: var(--color-glow);
+      font-family: 'VT323', monospace; font-size: 0.9rem; outline: none; min-width: 0;
+      box-sizing: border-box;
+    }
+    .challenge-go {
+      padding: 8px 14px; font-family: 'VT323', monospace; font-size: 1rem;
+      text-transform: uppercase; background: var(--color-primary);
+      color: var(--color-bg-dark); border: none; cursor: pointer; white-space: nowrap;
+    }
+
+    /* ── ZONE 5 — FOOTER ── */
+    .menu-footer {
+      flex: 0 0 auto;
+      display: flex; align-items: center; justify-content: center;
+      gap: 12px; padding: 0.75vw 16px; opacity: 0.6;
+    }
+    .footer-line { flex: 1; height: 1px; }
+    .footer-line.left  { background: linear-gradient(to right, transparent, var(--color-glow)); }
+    .footer-line.right { background: linear-gradient(to left,  transparent, var(--color-glow)); }
+    .footer-text {
+      font-family: 'VT323', monospace; font-size: 13px; color: var(--color-glow);
+      text-transform: uppercase; letter-spacing: 0.3em; white-space: nowrap;
+    }
     .start-back-btn {
       font-family: 'VT323', monospace; font-size: 1.1rem; text-transform: uppercase;
       padding: 6px 14px; color: var(--color-primary); background: transparent;
@@ -66,6 +138,7 @@
     .subpanel-footer { position: sticky; bottom: 0; height: 6px; background: var(--color-bg-dark); }
 
     /* ── GAME STYLES ── */
+    html, body { max-width: 100vw; overflow-x: hidden; }
     body {
       background-color: var(--color-bg-dark);
       font-family: 'Barlow', sans-serif;
@@ -78,6 +151,8 @@
       padding-left: env(safe-area-inset-left, 0px);
       padding-right: env(safe-area-inset-right, 0px);
       box-sizing: border-box;
+      border: 6px solid var(--color-primary);
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.45);
     }
 
     /* ── CARDS ── */
@@ -178,107 +253,83 @@
 
     <!-- ── MAIN ── -->
     <div id="start-main" class="menu-scroll relative z-10">
-      <div class="text-center pt-3 pb-3 px-6" style="border-bottom:4px solid var(--color-shadow);">
-        <div style="min-height:110px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;">
-          <!-- J. Black logo — placeholder for polish -->
-          <svg viewBox="0 0 80 95" width="58" height="69" xmlns="http://www.w3.org/2000/svg" style="border-radius:8px;border:1.5px solid rgba(201,149,42,0.5);flex-shrink:0;">
-            <rect width="80" height="95" fill="#0e2012"/>
-            <path d="M0,95 L0,66 Q5,56 19,52 L33,46 L40,53 L47,46 L61,52 Q75,56 80,66 L80,95Z" fill="#2c0a10"/>
-            <line x1="31" y1="58" x2="29" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
-            <line x1="49" y1="58" x2="51" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
-            <path d="M34,47 L40,55 L46,47 L44,43 L36,43Z" fill="#e8e0cc"/>
-            <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#7a1826"/>
-            <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8a2030"/>
-            <rect x="35" y="37" width="10" height="10" rx="3" fill="#7a4030"/>
-            <ellipse cx="24" cy="27" rx="3" ry="4" fill="#7a4030"/>
-            <ellipse cx="56" cy="27" rx="3" ry="4" fill="#7a4030"/>
-            <ellipse cx="40" cy="26" rx="17" ry="19" fill="#7a4030"/>
-            <circle cx="26" cy="17" r="8" fill="#171717"/>
-            <circle cx="33" cy="10" r="8" fill="#171717"/>
-            <circle cx="41" cy="8"  r="8" fill="#171717"/>
-            <circle cx="50" cy="10" r="7" fill="#171717"/>
-            <circle cx="57" cy="16" r="7" fill="#1c1c1c"/>
-            <circle cx="23" cy="24" r="6" fill="#1c1c1c"/>
-            <circle cx="59" cy="22" r="5" fill="#1c1c1c"/>
-            <circle cx="38" cy="8"  r="3" fill="#5a5a5a" opacity="0.75"/>
-            <circle cx="46" cy="9"  r="3" fill="#5a5a5a" opacity="0.75"/>
-            <ellipse cx="34" cy="25" rx="3.8" ry="2.8" fill="#f0e4d8"/>
-            <ellipse cx="46" cy="25" rx="3.8" ry="2.8" fill="#f0e4d8"/>
-            <circle cx="34.8" cy="25" r="2.2" fill="#180800"/>
-            <circle cx="46"   cy="25" r="2.2" fill="#180800"/>
-            <circle cx="35.6" cy="24.2" r="0.9" fill="#fff" opacity="0.9"/>
-            <circle cx="46.8" cy="24.2" r="0.9" fill="#fff" opacity="0.9"/>
-            <path d="M30,20 Q34,18 37,20" stroke="#151515" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-            <path d="M43,19.5 Q46.5,17.5 50,19.5" stroke="#151515" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-            <path d="M38,31 Q40,35 42,31" stroke="#5c2018" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-            <path d="M33,36 Q37,40 44,38 L46,36" stroke="#361008" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-            <path d="M36,38 Q40,38 44,38 Q43,44 40,45 Q37,44 36,38Z" fill="#202020"/>
-            <rect x="7" y="67" width="28" height="12" rx="2" fill="#c9952a"/>
-            <text x="21" y="76" font-family="Georgia,serif" font-size="5.5" fill="#0b1a10" text-anchor="middle" font-weight="bold" letter-spacing="0.4">J. BLACK</text>
-            <g transform="translate(57,59) rotate(15)">
-              <rect width="14" height="19" rx="1.5" fill="white" stroke="#c9952a" stroke-width="0.8"/>
-              <text x="7" y="13" font-size="10" text-anchor="middle" fill="#b82020" font-family="sans-serif">♥</text>
-            </g>
-          </svg>
-          <h1 style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.8rem,7.5vw,5rem);
-                      color:var(--color-glow);text-shadow:3px 3px 0 var(--color-shadow),0 0 20px rgba(201,149,42,0.5);
-                      text-transform:uppercase;letter-spacing:0.07em;line-height:1.1;">
-            Black Jack's BlackJack
-          </h1>
-        </div>
-        <div class="flex items-center justify-center gap-3 mt-2">
-          <div class="flex-grow h-px" style="background:linear-gradient(to right,transparent,var(--color-primary))"></div>
-          <span style="font-size:clamp(0.7rem,3vw,1rem);color:var(--color-primary);text-transform:uppercase;letter-spacing:0.15em;font-family:'VT323',monospace;">Three Hands. Five Matches.</span>
-          <div class="flex-grow h-px" style="background:linear-gradient(to left,transparent,var(--color-primary))"></div>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <button class="start-menu-btn" onclick="startGame()"><span>Play</span><span class="ml-auto text-base opacity-40 font-sans">↵</span></button>
-        <button class="start-menu-btn" onclick="showStartPanel('challenge')"><span>Challenge</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
-        <button class="start-menu-btn" onclick="showStartPanel('howtoplay')"><span>How to Play</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
-        <button class="start-menu-btn" onclick="showStartPanel('highscores')"><span>High Scores</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
-        <button class="start-menu-btn" onclick="showStartPanel('patchnotes')"><span>Patch Notes</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
-        <button class="start-menu-btn" onclick="showStartPanel('settings')"><span>Settings</span><span class="ml-auto text-base opacity-40 font-sans">›</span></button>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 16px;opacity:0.6;">
-        <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,#fff);"></div>
-        <span style="font-size:13px;text-transform:uppercase;letter-spacing:0.3em;color:#fff;white-space:nowrap;font-family:'VT323',monospace;">Tacticon Studios 2026 · v0.0.13</span>
-        <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,#fff);"></div>
-      </div>
-    </div>
 
-    <!-- ── CHALLENGE ── -->
-    <div id="start-challenge" class="menu-scroll hidden relative z-10">
-      <div class="subpanel-header">
-        <button class="start-back-btn" onclick="showStartPanel('main')">← Back</button>
-        <h2>Challenge</h2>
+      <!-- ZONE 1 — LOGO (flex/stretch) -->
+      <div class="logo-container">
+        <svg viewBox="0 0 80 95" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <rect width="80" height="95" fill="#0e2012"/>
+          <path d="M0,95 L0,66 Q5,56 19,52 L33,46 L40,53 L47,46 L61,52 Q75,56 80,66 L80,95Z" fill="#2c0a10"/>
+          <line x1="31" y1="58" x2="29" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
+          <line x1="49" y1="58" x2="51" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
+          <path d="M34,47 L40,55 L46,47 L44,43 L36,43Z" fill="#e8e0cc"/>
+          <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#7a1826"/>
+          <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8a2030"/>
+          <rect x="35" y="37" width="10" height="10" rx="3" fill="#7a4030"/>
+          <ellipse cx="24" cy="27" rx="3" ry="4" fill="#7a4030"/>
+          <ellipse cx="56" cy="27" rx="3" ry="4" fill="#7a4030"/>
+          <ellipse cx="40" cy="26" rx="17" ry="19" fill="#7a4030"/>
+          <circle cx="26" cy="17" r="8" fill="#171717"/>
+          <circle cx="33" cy="10" r="8" fill="#171717"/>
+          <circle cx="41" cy="8"  r="8" fill="#171717"/>
+          <circle cx="50" cy="10" r="7" fill="#171717"/>
+          <circle cx="57" cy="16" r="7" fill="#1c1c1c"/>
+          <circle cx="23" cy="24" r="6" fill="#1c1c1c"/>
+          <circle cx="59" cy="22" r="5" fill="#1c1c1c"/>
+          <circle cx="38" cy="8"  r="3" fill="#5a5a5a" opacity="0.75"/>
+          <circle cx="46" cy="9"  r="3" fill="#5a5a5a" opacity="0.75"/>
+          <ellipse cx="34" cy="25" rx="3.8" ry="2.8" fill="#f0e4d8"/>
+          <ellipse cx="46" cy="25" rx="3.8" ry="2.8" fill="#f0e4d8"/>
+          <circle cx="34.8" cy="25" r="2.2" fill="#180800"/>
+          <circle cx="46"   cy="25" r="2.2" fill="#180800"/>
+          <circle cx="35.6" cy="24.2" r="0.9" fill="#fff" opacity="0.9"/>
+          <circle cx="46.8" cy="24.2" r="0.9" fill="#fff" opacity="0.9"/>
+          <path d="M30,20 Q34,18 37,20" stroke="#151515" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <path d="M43,19.5 Q46.5,17.5 50,19.5" stroke="#151515" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+          <path d="M38,31 Q40,35 42,31" stroke="#5c2018" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+          <path d="M33,36 Q37,40 44,38 L46,36" stroke="#361008" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M36,38 Q40,38 44,38 Q43,44 40,45 Q37,44 36,38Z" fill="#202020"/>
+          <rect x="7" y="67" width="28" height="12" rx="2" fill="#c9952a"/>
+          <text x="21" y="76" font-family="Georgia,serif" font-size="5.5" fill="#0b1a10" text-anchor="middle" font-weight="bold" letter-spacing="0.4">J. BLACK</text>
+          <g transform="translate(57,59) rotate(15)">
+            <rect width="14" height="19" rx="1.5" fill="white" stroke="#c9952a" stroke-width="0.8"/>
+            <text x="7" y="13" font-size="10" text-anchor="middle" fill="#b82020" font-family="sans-serif">♥</text>
+          </g>
+        </svg>
       </div>
-      <div class="p-6 space-y-6" style="font-family:'VT323',monospace;">
-        <div>
-          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;border-bottom:1px solid var(--color-shadow);padding-bottom:4px;margin-bottom:12px">Accept a Challenge</h3>
-          <input id="challenge-input" type="text" placeholder="Paste challenge code..."
-                 style="width:100%;padding:10px 12px;background:var(--color-panel);border:2px solid var(--color-primary);
-                        color:var(--color-glow);font-family:'VT323',monospace;font-size:1rem;outline:none;box-sizing:border-box;">
-          <button onclick="acceptChallenge()"
-                  style="margin-top:12px;width:100%;padding:10px;font-family:'VT323',monospace;
-                         font-size:1.2rem;text-transform:uppercase;background:var(--color-primary);
-                         color:var(--color-bg-dark);border:none;cursor:pointer;">
-            Accept &amp; Play
-          </button>
-          <p id="challenge-error" class="hidden" style="margin-top:8px;color:#e84449;font-size:0.875rem;"></p>
-        </div>
-        <div>
-          <h3 style="color:var(--color-glow);text-transform:uppercase;font-weight:bold;border-bottom:1px solid var(--color-shadow);padding-bottom:4px;margin-bottom:12px">Issue a Challenge</h3>
-          <p style="color:#d1d5db;font-size:0.875rem;margin-bottom:12px">Play normally. At the end you'll get a shareable code — friends play the exact same deal and try to beat your result.</p>
-          <button onclick="startGame()"
-                  style="width:100%;padding:10px;font-family:'VT323',monospace;font-size:1.2rem;
-                         text-transform:uppercase;background:transparent;color:var(--color-primary);
-                         border:2px solid var(--color-primary);cursor:pointer;">
-            Play &amp; Generate Code
-          </button>
-        </div>
+
+      <!-- ZONE 2 — TAGLINE -->
+      <div class="tagline-container">
+        <div class="tagline-line left"></div>
+        <span class="tagline-text">Hit · Stand · Win</span>
+        <div class="tagline-line right"></div>
       </div>
-      <div class="subpanel-footer"></div>
+
+      <!-- ZONE 3 — BUTTONS -->
+      <div class="menu-buttons">
+        <button class="start-menu-btn" onclick="startGame()"><span>Play</span><span class="arrow">↵</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('howtoplay')"><span>How to Play</span><span class="arrow">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('highscores')"><span>High Scores</span><span class="arrow">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('patchnotes')"><span>Patch Notes</span><span class="arrow">›</span></button>
+        <button class="start-menu-btn" onclick="showStartPanel('settings')"><span>Settings</span><span class="arrow">›</span></button>
+      </div>
+
+      <!-- ZONE 4 — CHALLENGE (inline) -->
+      <div class="challenge-container">
+        <p class="challenge-label">Accept a Challenge</p>
+        <div class="challenge-row">
+          <input id="challenge-input" type="text" class="challenge-input" placeholder="Paste challenge code...">
+          <button class="challenge-go" onclick="acceptChallenge()">GO</button>
+        </div>
+        <p id="challenge-error" class="hidden" style="margin-top:8px;color:#e84449;font-size:0.875rem;font-family:'VT323',monospace;"></p>
+      </div>
+
+      <!-- ZONE 5 — FOOTER -->
+      <div class="menu-footer">
+        <div class="footer-line left"></div>
+        <span class="footer-text">Tacticon Studios 2026 · v0.0.14</span>
+        <div class="footer-line right"></div>
+      </div>
+
     </div>
 
     <!-- ── HOW TO PLAY ── -->
@@ -518,7 +569,7 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.13</p>
+    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.14</p>
   </div>
 
   <script>
@@ -639,7 +690,7 @@
           </ul>
         </div>`).join('');
     }
-    const START_PANELS = ['main','challenge','howtoplay','highscores','patchnotes','settings'];
+    const START_PANELS = ['main','howtoplay','highscores','patchnotes','settings'];
     function showStartPanel(name, fromPopstate=false) {
       START_PANELS.forEach(p => {
         const el = document.getElementById('start-'+p);
