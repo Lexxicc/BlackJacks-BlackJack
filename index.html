@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.14</title>
+  <title>Black Jack's BlackJack v0.0.15</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#c9952a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,12 +17,19 @@
     @import url('https://fonts.googleapis.com/css2?family=VT323&family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@400;600&display=swap');
 
     :root {
-      --color-bg-dark:  #0b1a10;
-      --color-panel:    #152d1c;
-      --color-primary:  #c9952a;
-      --color-accent:   #e6b84d;
-      --color-glow:     #f7d76e;
-      --color-shadow:   #060e08;
+      /* J. Black's Lounge: 1950s vintage Vegas burgundy + brass + cream parchment */
+      --color-bg-dark:  #160407;
+      --color-panel:    #2a0c12;
+      --color-primary:  #c4a447;   /* brass gold */
+      --color-accent:   #e9c46a;   /* warm light gold */
+      --color-glow:     #f5cf78;   /* highlight gold */
+      --color-shadow:   #08020a;
+      --color-burgundy: #8b1a2a;   /* J. Black's waistcoat red */
+      --color-burgundy-deep: #58101b;
+      --color-felt:     #234c33;   /* table baize */
+      --color-cream:    #efe2c2;   /* card parchment */
+      --color-cream-shadow: #c8b88a;
+      --color-bowtie:   #6e1424;
     }
 
     /* ── FRONT MENU (SoT pattern — 5 zones, uniform 1.5vw padding+gap) ── */
@@ -141,8 +148,14 @@
     html, body { max-width: 100vw; overflow-x: hidden; }
     body {
       background-color: var(--color-bg-dark);
+      /* J. Black's lounge: deep wine + brocade hint, brass vignette */
+      background-image:
+        radial-gradient(ellipse at top, rgba(139,26,42,0.30) 0%, transparent 55%),
+        radial-gradient(ellipse at bottom, rgba(8,2,10,0.55) 0%, transparent 55%),
+        repeating-linear-gradient(45deg, rgba(196,164,71,0.025) 0 1px, transparent 1px 14px),
+        repeating-linear-gradient(-45deg, rgba(139,26,42,0.04) 0 1px, transparent 1px 14px);
       font-family: 'Barlow', sans-serif;
-      color: #fff;
+      color: #f5e9c8;
       min-height: 100vh; min-height: 100dvh;
       margin: 0;
       overscroll-behavior: none;
@@ -152,36 +165,45 @@
       padding-right: env(safe-area-inset-right, 0px);
       box-sizing: border-box;
       border: 6px solid var(--color-primary);
-      box-shadow: inset 0 0 40px rgba(0,0,0,0.45);
+      box-shadow:
+        inset 0 0 60px rgba(8,2,10,0.65),
+        inset 0 0 8px rgba(196,164,71,0.25);
     }
 
-    /* ── CARDS ── */
+    /* ── CARDS (cream parchment, brass border, art-deco corner pip) ── */
     .card {
-      width: 48px; height: 68px; border-radius: 6px;
-      border: 2px solid #ccc; background: #fff;
+      width: 48px; height: 68px; border-radius: 4px;
+      border: 1.5px solid var(--color-primary); background: var(--color-cream);
+      background-image:
+        radial-gradient(ellipse at center, rgba(255,255,255,0.7) 0%, transparent 70%),
+        repeating-linear-gradient(0deg, rgba(200,184,138,0.18) 0 1px, transparent 1px 3px);
       display: flex; flex-direction: column; justify-content: space-between;
       padding: 3px 4px; font-weight: 700;
       position: relative; cursor: pointer; user-select: none;
       transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 1px 2px 4px rgba(0,0,0,0.5);
+      box-shadow: 1px 2px 5px rgba(8,2,10,0.65), inset 0 0 6px rgba(200,184,138,0.4);
       flex-shrink: 0;
       touch-action: manipulation;
+      font-family: 'Playfair Display', serif;
     }
-    .card-red  { color: #c0392b; }
-    .card-black { color: #1a1a1a; }
+    .card-red  { color: var(--color-burgundy); }
+    .card-black { color: #1a0d10; }
     .card-back {
-      background: var(--color-panel);
+      background: var(--color-burgundy);
+      /* Paisley-ish brocade pattern from J. Black's waistcoat */
       background-image:
-        repeating-linear-gradient(45deg, rgba(201,149,42,0.18) 0, rgba(201,149,42,0.18) 1px, transparent 0, transparent 50%),
-        repeating-linear-gradient(-45deg, rgba(201,149,42,0.18) 0, rgba(201,149,42,0.18) 1px, transparent 0, transparent 50%);
-      background-size: 8px 8px;
+        radial-gradient(circle at 30% 30%, rgba(196,164,71,0.22) 0 3px, transparent 4px),
+        radial-gradient(circle at 70% 70%, rgba(196,164,71,0.22) 0 3px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(196,164,71,0.10) 0 1px, transparent 1px 8px),
+        repeating-linear-gradient(-45deg, rgba(196,164,71,0.10) 0 1px, transparent 1px 8px);
+      background-size: 16px 16px, 16px 16px, auto, auto;
       border-color: var(--color-primary);
       cursor: pointer;
     }
     .card.selected {
       transform: translateY(-10px);
-      box-shadow: 0 10px 24px rgba(201,149,42,0.8);
-      border-color: var(--color-primary);
+      box-shadow: 0 10px 24px rgba(196,164,71,0.85), 0 0 0 2px var(--color-glow);
+      border-color: var(--color-glow);
     }
     .card-tl { line-height: 1.1; font-size: 9px; }
     .card-center { text-align: center; font-size: 16px; line-height: 1; }
@@ -198,19 +220,37 @@
     }
     .card-slot.slot-hot {
       border-color: var(--color-primary);
-      background: rgba(201,149,42,0.12);
+      background: rgba(196,164,71,0.14);
+      box-shadow: inset 0 0 8px rgba(196,164,71,0.3);
     }
     .card-slot.slot-filled {
-      border-style: solid; border-color: rgba(201,149,42,0.25);
+      border-style: solid; border-color: rgba(196,164,71,0.3);
       padding: 0; overflow: hidden;
     }
     .hand-group {
-      background: rgba(0,0,0,0.3);
-      border: 2px solid rgba(201,149,42,0.2);
-      border-radius: 8px; padding: 5px 6px;
-      transition: border-color 0.15s;
+      /* Burgundy leather + gold-stitched edge, like J. Black's waistcoat */
+      background:
+        linear-gradient(180deg, rgba(139,26,42,0.55) 0%, rgba(88,16,27,0.6) 100%),
+        repeating-linear-gradient(45deg, rgba(8,2,10,0.18) 0 1px, transparent 1px 6px);
+      background-color: rgba(20,4,8,0.45);
+      border: 1.5px solid var(--color-primary);
+      border-radius: 6px; padding: 6px 7px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      box-shadow: 0 1px 3px rgba(8,2,10,0.7), inset 0 0 12px rgba(8,2,10,0.5);
     }
-    .hand-group.slot-hot { border-color: rgba(201,149,42,0.6); }
+    .hand-group.slot-hot {
+      border-color: var(--color-glow);
+      box-shadow: 0 0 0 1px var(--color-glow), 0 1px 6px rgba(245,207,120,0.4), inset 0 0 12px rgba(8,2,10,0.5);
+    }
+    .placing-layout { display: flex; gap: 12px; align-items: flex-start; padding: 4px 6px 8px; }
+    .placing-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+    .placing-col-label {
+      text-align: center; font-family: 'VT323', monospace; font-size: 0.85rem;
+      color: rgba(201,149,42,0.65); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .hands-stack { display: flex; flex-direction: column; gap: 6px; }
+    .pool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .pool-grid > .card { margin: 0; }
     .hand-label {
       font-family: 'VT323', monospace; font-size: 0.9rem;
       color: var(--color-primary); text-transform: uppercase;
@@ -218,14 +258,22 @@
     }
 
     .btn-action {
-      font-family: 'VT323', monospace; font-size: 1.4rem;
-      text-transform: uppercase; letter-spacing: 0.08em;
-      padding: 10px 28px; border: 3px solid var(--color-primary);
-      background: var(--color-panel); color: var(--color-glow);
-      cursor: pointer; transition: background 0.12s;
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 1.3rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 10px 28px; border: 2px solid var(--color-primary);
+      background:
+        linear-gradient(180deg, rgba(196,164,71,0.18) 0%, rgba(8,2,10,0.55) 100%),
+        var(--color-burgundy);
+      color: var(--color-glow);
+      cursor: pointer; transition: background 0.12s, transform 0.08s;
       touch-action: manipulation;
+      box-shadow: 0 2px 6px rgba(8,2,10,0.7), inset 0 0 8px rgba(196,164,71,0.18);
+      text-shadow: 0 1px 0 rgba(8,2,10,0.7);
+      border-radius: 3px;
     }
-    .btn-action:hover { background: var(--color-primary); color: var(--color-bg-dark); }
+    .btn-action:hover { background: var(--color-glow); color: var(--color-burgundy-deep); }
+    .btn-action:active { transform: translateY(1px); }
     .btn-action:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
     .btn-hit  { border-color: #4ade80 !important; color: #4ade80 !important; }
     .btn-hit:hover  { background: #4ade80 !important; color: #000 !important; }
@@ -300,7 +348,7 @@
       <!-- ZONE 2 — TAGLINE -->
       <div class="tagline-container">
         <div class="tagline-line left"></div>
-        <span class="tagline-text">Hit · Stand · Win</span>
+        <span class="tagline-text">Welcome to J. Black's Table</span>
         <div class="tagline-line right"></div>
       </div>
 
@@ -326,7 +374,7 @@
       <!-- ZONE 5 — FOOTER -->
       <div class="menu-footer">
         <div class="footer-line left"></div>
-        <span class="footer-text">Tacticon Studios 2026 · v0.0.14</span>
+        <span class="footer-text">Tacticon Studios 2026 · v0.0.15</span>
         <div class="footer-line right"></div>
       </div>
 
@@ -340,20 +388,20 @@
       </div>
       <div class="p-5 text-sm space-y-4" style="font-family:'VT323',monospace;color:#d1d5db;">
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
-          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Setup</p>
-          <p style="line-height:1.6">You're dealt 7 face-up cards. Tap a card to select it, then tap a hand slot to place it. Choose 6 cards to build 3 hands of 2 cards each — the 7th is discarded.</p>
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">J. Black Deals You In</p>
+          <p style="line-height:1.6">"Welcome to my table, friend." J. Black slides 8 face-up cards across the felt. Tap a card to pick it up, then tap a hand slot to lay it down. Build 3 hands of 2 cards from the 8, the 2 spares get burnt.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
-          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Strategy</p>
-          <p style="line-height:1.6">You can see all 7 cards. Choose wisely — which 6 you keep and where you place them is the whole game. The dealer's 6 cards are split randomly into 3 hands.</p>
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Read</p>
+          <p style="line-height:1.6">Every card's face up, friend, no surprises on your side. Which 6 you keep and where you place them, that's the whole game. The house gets 6 cards too, split into 3 hands by chance, not choice. Outsmart the deal.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
-          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Playing</p>
-          <p style="line-height:1.6">Once all cards are placed, your hands are revealed. Play Hand 1 vs Dealer Hand 1, then Hand 2 vs Hand 2, then Hand 3 vs Hand 3. Hit or Stand as normal blackjack. Dealer hits on 16 or below.</p>
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Play</p>
+          <p style="line-height:1.6">Cards down, table set. Hand 1 against the house's Hand 1, then Hand 2, then Hand 3. Hit or Stand the old-fashioned way. The house holds at 17, hits anything 16 or under.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
-          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">Winning</p>
-          <p style="line-height:1.6">Best 2 hands out of 3 wins a match. Win 3 matches to win the series (best of 5). Your ELO rating goes up or down based on the final series result.</p>
+          <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">The Take</p>
+          <p style="line-height:1.6">Take 2 of 3 hands and the match is yours. Take 3 matches and the series is yours (best of 5). Your standing at J. Black's table rises or falls with every series, that's the rating.</p>
         </div>
         <div style="border:2px solid var(--color-primary);padding:10px 12px;background:rgba(0,0,0,0.3)">
           <p style="color:var(--color-glow);text-transform:uppercase;font-size:11px;letter-spacing:0.1em;font-weight:bold;margin-bottom:4px">ELO</p>
@@ -450,17 +498,19 @@
         <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:2px;">Tap a card, then tap a slot</div>
       </div>
 
-      <!-- HAND SLOTS -->
-      <div class="flex gap-1 justify-center mb-4" id="slot-area"></div>
-
-      <hr class="divider">
-
-      <!-- PLAYER POOL -->
-      <div class="text-center mb-2" style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Your Cards</div>
-      <div class="flex gap-2 justify-center flex-wrap mb-4" id="card-pool"></div>
+      <!-- SIDE-BY-SIDE: hand slots on the left, card pool on the right -->
+      <div class="placing-layout">
+        <div class="placing-col placing-hands">
+          <div class="placing-col-label">Your Hands</div>
+          <div id="slot-area" class="hands-stack"></div>
+        </div>
+        <div class="placing-col placing-pool">
+          <div class="placing-col-label">Your Cards</div>
+          <div id="card-pool" class="pool-grid"></div>
+        </div>
+      </div>
 
       <div class="text-center mt-3 pb-4 flex gap-3 justify-center">
-        <button id="place-all-btn" class="btn-action" onclick="placeAllRandomly()">Place All</button>
         <button id="deal-btn" class="btn-action" style="display:none;" onclick="revealAndPlay()">Reveal &amp; Play →</button>
       </div>
     </div>
@@ -569,7 +619,7 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="font-size:10px;text-align:center;opacity:0.4;padding:8px;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;">&copy; Tacticon Studios 2026 &mdash; v0.0.14</p>
+    <p style="position:fixed;left:0;right:0;bottom:1vw;font-size:10px;text-align:center;opacity:0.4;padding:0;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;pointer-events:none;">&copy; Tacticon Studios 2026 &mdash; v0.0.15</p>
   </div>
 
   <script>
@@ -636,6 +686,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.15', date:'2026-05', notes:['"J. Black\'s Lounge" reskin: burgundy/brass/cream palette, brocade body bg, cream-parchment cards with brass borders, leather-feel hand-group panels with gold trim, gold-edged burgundy buttons. Tutorial copy rewritten in J. Black\'s voice.','Placing-phase UI restructured: 3 build-hands now stack on the LEFT, card pool on the RIGHT in a 2x4 grid.','Card pool bumped from 7 to 8 (2 spares now discarded instead of 1).','"Place All" button removed - card-by-card placement only.','In-game footer pinned to viewport bottom (1vw offset) across all phases.'] },
       { v:'v0.0.13', date:'2026-05', notes:['OPW shell retrofit: start overlay with match history, patch notes, and back-button support.'] },
       { v:'v0.0.12', date:'2026-05', notes:['Improved service worker: CDN resources now cached for offline support.'] },
       { v:'v0.0.11', date:'2026-05', notes:['PWA install support added.'] },
@@ -835,10 +886,10 @@
     function initMatch() {
       matchNumber++;
       liveDeck     = shuffleDeck(createDeck());
-      playerCards  = liveDeck.splice(0, 7);
+      playerCards  = liveDeck.splice(0, 8);
       dealerCards  = liveDeck.splice(0, 6);
 
-      playerPool    = [0,1,2,3,4,5,6];
+      playerPool    = [0,1,2,3,4,5,6,7];
       playerHands   = [[undefined,undefined],[undefined,undefined],[undefined,undefined]];
       dealerHands   = assignDealerHands();
       dealerHandCards = [
@@ -887,9 +938,9 @@
     function renderPlacingPhase() {
       renderSlots();
       renderPool();
-      const allPlaced = playerPool.length <= 1;
+      // 8-card pool, 6 placed -> 2 spares stay in the pool, that's the ready state
+      const allPlaced = playerPool.length <= 2;
       document.getElementById('deal-btn').style.display = allPlaced ? 'inline-block' : 'none';
-      document.getElementById('place-all-btn').style.display = allPlaced ? 'none' : 'inline-block';
     }
 
     function renderSlots() {
@@ -968,21 +1019,6 @@
       if (!emptySlots.length) return;
       const [h, s] = emptySlots[Math.floor(rng() * emptySlots.length)];
       placeCardInSlot(h, s);
-    }
-
-    function placeAllRandomly() {
-      while (playerPool.length > 0) {
-        const emptySlots = [];
-        for (let h = 0; h < 3; h++) {
-          for (let s = 0; s < 2; s++) {
-            if (playerHands[h][s] === undefined) emptySlots.push([h, s]);
-          }
-        }
-        if (!emptySlots.length) break;
-        selectedPoolIdx = 0;
-        const [h, s] = emptySlots[Math.floor(rng() * emptySlots.length)];
-        placeCardInSlot(h, s);
-      }
     }
 
     function clickHandGroup(h) {
