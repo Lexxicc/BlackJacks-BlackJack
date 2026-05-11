@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.15</title>
+  <title>Black Jack's BlackJack v0.0.16</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#c9952a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,25 +20,25 @@
       /* J. Black's Lounge: 1950s vintage Vegas burgundy + brass + cream parchment */
       --color-bg-dark:  #160407;
       --color-panel:    #2a0c12;
-      --color-primary:  #c4a447;   /* brass gold */
-      --color-accent:   #e9c46a;   /* warm light gold */
-      --color-glow:     #f5cf78;   /* highlight gold */
+      --color-primary:  #c89028;   /* amber-brass gold */
+      --color-accent:   #dda030;   /* warm amber */
+      --color-glow:     #f0c040;   /* bright gold highlight */
       --color-shadow:   #08020a;
-      --color-burgundy: #8b1a2a;   /* J. Black's waistcoat red */
-      --color-burgundy-deep: #58101b;
-      --color-felt:     #234c33;   /* table baize */
+      --color-burgundy: #8c1a22;   /* J. Black's waistcoat red */
+      --color-burgundy-deep: #4a0e16;
+      --color-felt:     #1c5e2a;   /* deep casino baize */
       --color-cream:    #efe2c2;   /* card parchment */
       --color-cream-shadow: #c8b88a;
-      --color-bowtie:   #6e1424;
+      --color-bowtie:   #8a1820;
     }
 
     /* ── FRONT MENU (SoT pattern — 5 zones, uniform 1.5vw padding+gap) ── */
     .menu-scroll {
       background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-panel) 45%, var(--color-panel) 55%, var(--color-bg-dark) 100%);
       border: 6px solid var(--color-primary);
-      box-shadow: 0 0 6px 2px rgba(201,149,42,0.55),
-                  0 0 28px 4px rgba(201,149,42,0.28),
-                  0 0 70px rgba(201,149,42,0.12),
+      box-shadow: 0 0 6px 2px rgba(200,144,40,0.55),
+                  0 0 28px 4px rgba(200,144,40,0.28),
+                  0 0 70px rgba(200,144,40,0.12),
                   inset 0 0 40px rgba(0,0,0,0.45);
       width: 640px; max-width: 94vw;
       height: calc(100dvh - 3.2vw); max-height: calc(100dvh - 3.2vw);
@@ -85,7 +85,7 @@
       text-align: left; transition: background 0.12s, padding-left 0.12s;
       touch-action: manipulation;
     }
-    .start-menu-btn:hover { background: rgba(201,149,42,0.10); color: #fff; padding-left: 28px; }
+    .start-menu-btn:hover { background: rgba(200,144,40,0.10); color: #fff; padding-left: 28px; }
     .start-menu-btn:last-child { border-bottom: none; }
     .start-menu-btn .arrow { margin-left: auto; font-size: 1rem; opacity: 0.4; font-family: sans-serif; }
 
@@ -152,7 +152,7 @@
       background-image:
         radial-gradient(ellipse at top, rgba(139,26,42,0.30) 0%, transparent 55%),
         radial-gradient(ellipse at bottom, rgba(8,2,10,0.55) 0%, transparent 55%),
-        repeating-linear-gradient(45deg, rgba(196,164,71,0.025) 0 1px, transparent 1px 14px),
+        repeating-linear-gradient(45deg, rgba(200,144,40,0.025) 0 1px, transparent 1px 14px),
         repeating-linear-gradient(-45deg, rgba(139,26,42,0.04) 0 1px, transparent 1px 14px);
       font-family: 'Barlow', sans-serif;
       color: #f5e9c8;
@@ -167,7 +167,7 @@
       border: 6px solid var(--color-primary);
       box-shadow:
         inset 0 0 60px rgba(8,2,10,0.65),
-        inset 0 0 8px rgba(196,164,71,0.25);
+        inset 0 0 8px rgba(200,144,40,0.25);
     }
 
     /* ── CARDS (cream parchment, brass border, art-deco corner pip) ── */
@@ -192,17 +192,17 @@
       background: var(--color-burgundy);
       /* Paisley-ish brocade pattern from J. Black's waistcoat */
       background-image:
-        radial-gradient(circle at 30% 30%, rgba(196,164,71,0.22) 0 3px, transparent 4px),
-        radial-gradient(circle at 70% 70%, rgba(196,164,71,0.22) 0 3px, transparent 4px),
-        repeating-linear-gradient(45deg, rgba(196,164,71,0.10) 0 1px, transparent 1px 8px),
-        repeating-linear-gradient(-45deg, rgba(196,164,71,0.10) 0 1px, transparent 1px 8px);
+        radial-gradient(circle at 30% 30%, rgba(200,144,40,0.22) 0 3px, transparent 4px),
+        radial-gradient(circle at 70% 70%, rgba(200,144,40,0.22) 0 3px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(200,144,40,0.10) 0 1px, transparent 1px 8px),
+        repeating-linear-gradient(-45deg, rgba(200,144,40,0.10) 0 1px, transparent 1px 8px);
       background-size: 16px 16px, 16px 16px, auto, auto;
       border-color: var(--color-primary);
       cursor: pointer;
     }
     .card.selected {
       transform: translateY(-10px);
-      box-shadow: 0 10px 24px rgba(196,164,71,0.85), 0 0 0 2px var(--color-glow);
+      box-shadow: 0 10px 24px rgba(200,144,40,0.85), 0 0 0 2px var(--color-glow);
       border-color: var(--color-glow);
     }
     .card-tl { line-height: 1.1; font-size: 9px; }
@@ -211,8 +211,8 @@
 
     .card-slot {
       width: 52px; height: 72px; border-radius: 6px;
-      border: 2px dashed rgba(201,149,42,0.35);
-      background: rgba(201,149,42,0.04);
+      border: 2px dashed rgba(200,144,40,0.35);
+      background: rgba(200,144,40,0.04);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: border-color 0.15s, background 0.15s;
       flex-shrink: 0;
@@ -220,11 +220,11 @@
     }
     .card-slot.slot-hot {
       border-color: var(--color-primary);
-      background: rgba(196,164,71,0.14);
-      box-shadow: inset 0 0 8px rgba(196,164,71,0.3);
+      background: rgba(200,144,40,0.14);
+      box-shadow: inset 0 0 8px rgba(200,144,40,0.3);
     }
     .card-slot.slot-filled {
-      border-style: solid; border-color: rgba(196,164,71,0.3);
+      border-style: solid; border-color: rgba(200,144,40,0.3);
       padding: 0; overflow: hidden;
     }
     .hand-group {
@@ -240,17 +240,145 @@
     }
     .hand-group.slot-hot {
       border-color: var(--color-glow);
-      box-shadow: 0 0 0 1px var(--color-glow), 0 1px 6px rgba(245,207,120,0.4), inset 0 0 12px rgba(8,2,10,0.5);
+      box-shadow: 0 0 0 1px var(--color-glow), 0 1px 6px rgba(240,192,64,0.4), inset 0 0 12px rgba(8,2,10,0.5);
     }
-    .placing-layout { display: flex; gap: 12px; align-items: flex-start; padding: 4px 6px 8px; }
-    .placing-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-    .placing-col-label {
+    /* ── PLACING PHASE - felt table + concave hand arc + slide-up builder ── */
+    .felt-table {
+      position: relative;
+      min-height: 460px;
+      background:
+        radial-gradient(ellipse at 50% 35%, rgba(38,110,55,0.80) 0%, transparent 65%),
+        radial-gradient(circle at center, #225e2e 0%, #142a1a 100%);
+      border-radius: 12px;
+      border: 2px solid rgba(200,144,40,0.45);
+      box-shadow: 0 0 0 1px rgba(200,144,40,0.15), inset 0 0 40px rgba(0,0,0,0.45);
+      padding: 8px 4px 12px;
+      margin: 4px;
+      overflow: hidden;
+    }
+    .felt-table::before {
+      /* Felt-weave texture overlay */
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 4px);
+      mix-blend-mode: overlay;
+    }
+    .placing-header { position: relative; z-index: 2; }
+    .placing-title {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+      font-size: 1.4rem; color: var(--color-glow);
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6), 0 0 14px rgba(240,192,64,0.25);
+      letter-spacing: 0.08em;
+    }
+    .placing-sub {
+      font-family: 'VT323', monospace; font-size: 0.85rem;
+      color: rgba(240,192,64,0.7); margin-top: 2px;
+    }
+
+    /* Hand arc - 3 slots on a downward-facing concave (bowl) curve */
+    .hand-arc {
+      position: relative; z-index: 2;
+      display: flex; justify-content: space-around; align-items: flex-end;
+      padding: 50px 18px 24px;
+      min-height: 180px;
+    }
+    .hand-arc .hand-slot:nth-child(1) { transform: translateY(-22px); }
+    .hand-arc .hand-slot:nth-child(2) { transform: translateY(8px); }
+    .hand-arc .hand-slot:nth-child(3) { transform: translateY(-22px); }
+
+    .hand-slot {
+      width: 100px; min-height: 130px;
+      border: 2px solid rgba(200,144,40,0.50);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.28);
+      box-shadow: inset 0 0 14px rgba(0,0,0,0.4), 0 0 0 1px rgba(200,144,40,0.12);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 6px; padding: 6px;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s, box-shadow 0.18s;
+      box-shadow: inset 0 0 18px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .hand-slot:hover, .hand-slot:active {
+      border-color: var(--color-glow);
+      box-shadow: inset 0 0 18px rgba(0,0,0,0.5), 0 0 14px rgba(240,192,64,0.5);
+    }
+    .hand-slot.filled {
+      border-style: solid; border-color: var(--color-primary);
+      background: rgba(0,0,0,0.45);
+      cursor: default;
+    }
+    .hand-slot-num {
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+      font-size: 1.4rem; color: var(--color-glow);
+      text-shadow: 0 0 8px rgba(240,192,64,0.4);
+    }
+    .hand-slot-cards { display: flex; gap: 4px; }
+    .hand-slot.empty .hand-slot-cards::before {
+      content: "+"; color: rgba(240,192,64,0.4); font-size: 1.6rem; line-height: 1;
+    }
+    .hand-slot .card { width: 38px; height: 54px; padding: 2px 3px; cursor: default; }
+    .hand-slot .card .card-tl, .hand-slot .card .card-br { font-size: 7px; }
+    .hand-slot .card .card-center { font-size: 12px; }
+
+    .felt-action-row { position: relative; z-index: 2; padding-top: 8px; }
+
+    /* Slot builder - full-screen overlay that slides up */
+    .slot-builder {
+      position: fixed; inset: 0; z-index: 80;
+      display: flex; align-items: flex-end; justify-content: center;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(2px);
+      animation: builder-fade-in 0.22s ease;
+    }
+    .slot-builder.hidden { display: none; }
+    @keyframes builder-fade-in { from { background: rgba(0,0,0,0); } to { background: rgba(0,0,0,0.6); } }
+    .builder-panel {
+      width: 100%; max-width: 520px;
+      background:
+        linear-gradient(180deg, rgba(139,26,42,0.55) 0%, rgba(88,16,27,0.6) 100%),
+        var(--color-bg-dark);
+      border: 2px solid var(--color-primary);
+      border-bottom: none;
+      border-top-left-radius: 14px; border-top-right-radius: 14px;
+      box-shadow: 0 -8px 30px rgba(0,0,0,0.7), inset 0 0 22px rgba(8,2,10,0.5);
+      padding: 14px 14px 20px;
+      animation: builder-slide-up 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+      max-height: 86dvh; overflow-y: auto;
+    }
+    @keyframes builder-slide-up { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .builder-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 8px; margin-bottom: 10px;
+      border-bottom: 1px solid rgba(200,144,40,0.3);
+      font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700;
+      font-size: 1.2rem; color: var(--color-glow);
+    }
+    .builder-close {
+      background: transparent; border: none; color: var(--color-glow);
+      font-size: 1.6rem; line-height: 1; cursor: pointer; padding: 0 6px;
+      opacity: 0.7; transition: opacity 0.12s;
+    }
+    .builder-close:hover { opacity: 1; }
+    .builder-target {
+      display: flex; gap: 12px; justify-content: center;
+      padding: 10px; margin-bottom: 12px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      border: 1px dashed rgba(200,144,40,0.4);
+    }
+    .builder-pool-label {
       text-align: center; font-family: 'VT323', monospace; font-size: 0.85rem;
-      color: rgba(201,149,42,0.65); text-transform: uppercase; letter-spacing: 0.1em;
+      color: rgba(240,192,64,0.7); text-transform: uppercase;
+      letter-spacing: 0.1em; margin-bottom: 6px;
     }
-    .hands-stack { display: flex; flex-direction: column; gap: 6px; }
-    .pool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .pool-grid > .card { margin: 0; }
+    .builder-pool {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+      margin-bottom: 14px;
+    }
+    .builder-pool > .card { margin: 0 auto; }
+    .builder-actions { display: flex; justify-content: center; }
+    .btn-action:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
     .hand-label {
       font-family: 'VT323', monospace; font-size: 0.9rem;
       color: var(--color-primary); text-transform: uppercase;
@@ -263,12 +391,12 @@
       text-transform: uppercase; letter-spacing: 0.12em;
       padding: 10px 28px; border: 2px solid var(--color-primary);
       background:
-        linear-gradient(180deg, rgba(196,164,71,0.18) 0%, rgba(8,2,10,0.55) 100%),
+        linear-gradient(180deg, rgba(200,144,40,0.18) 0%, rgba(8,2,10,0.55) 100%),
         var(--color-burgundy);
       color: var(--color-glow);
       cursor: pointer; transition: background 0.12s, transform 0.08s;
       touch-action: manipulation;
-      box-shadow: 0 2px 6px rgba(8,2,10,0.7), inset 0 0 8px rgba(196,164,71,0.18);
+      box-shadow: 0 2px 6px rgba(8,2,10,0.7), inset 0 0 8px rgba(200,144,40,0.18);
       text-shadow: 0 1px 0 rgba(8,2,10,0.7);
       border-radius: 3px;
     }
@@ -284,7 +412,7 @@
     .val-display.bust { color: #f87171; }
     .val-display.bj   { color: #ffd700; }
 
-    .divider { border: none; border-top: 1px solid rgba(201,149,42,0.2); margin: 10px 0; }
+    .divider { border: none; border-top: 1px solid rgba(200,144,40,0.2); margin: 10px 0; }
 
     @media (pointer: coarse) {
       .card { width: 56px; height: 80px; }
@@ -310,8 +438,8 @@
           <line x1="31" y1="58" x2="29" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
           <line x1="49" y1="58" x2="51" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
           <path d="M34,47 L40,55 L46,47 L44,43 L36,43Z" fill="#e8e0cc"/>
-          <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#7a1826"/>
-          <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8a2030"/>
+          <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#8a1820"/>
+          <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8c1a22"/>
           <rect x="35" y="37" width="10" height="10" rx="3" fill="#7a4030"/>
           <ellipse cx="24" cy="27" rx="3" ry="4" fill="#7a4030"/>
           <ellipse cx="56" cy="27" rx="3" ry="4" fill="#7a4030"/>
@@ -374,7 +502,7 @@
       <!-- ZONE 5 — FOOTER -->
       <div class="menu-footer">
         <div class="footer-line left"></div>
-        <span class="footer-text">Tacticon Studios 2026 · v0.0.15</span>
+        <span class="footer-text">Tacticon Studios 2026 · v0.0.16</span>
         <div class="footer-line right"></div>
       </div>
 
@@ -479,39 +607,63 @@
   <div id="game-main" class="w-full max-w-lg mx-auto px-3" style="display:none;">
 
     <!-- HEADER -->
-    <div class="flex items-center justify-between py-3 px-1" style="border-bottom:2px solid rgba(201,149,42,0.3);">
+    <div class="flex items-center justify-between py-3 px-1" style="border-bottom:2px solid rgba(200,144,40,0.3);">
       <div>
-        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
+        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(200,144,40,0.65);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
         <div id="elo-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">1200</div>
       </div>
       <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--color-glow);opacity:0.7;">Black Jack's BlackJack</div>
       <div class="text-right">
-        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(201,149,42,0.65);text-transform:uppercase;letter-spacing:0.1em;">Series</div>
+        <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(200,144,40,0.65);text-transform:uppercase;letter-spacing:0.1em;">Series</div>
         <div id="match-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">0 – 0</div>
       </div>
     </div>
 
     <!-- ── PLACING PHASE ── -->
-    <div id="phase-placing" style="display:none;">
-      <div class="text-center py-3">
-        <div style="font-family:'VT323',monospace;font-size:1.1rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Place Your Cards</div>
-        <div style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:2px;">Tap a card, then tap a slot</div>
+    <div id="phase-placing" class="felt-table" style="display:none;">
+      <div class="text-center py-3 placing-header">
+        <div class="placing-title">Build Your Hands</div>
+        <div class="placing-sub">Tap a slot, pick 2 cards, confirm</div>
       </div>
 
-      <!-- SIDE-BY-SIDE: hand slots on the left, card pool on the right -->
-      <div class="placing-layout">
-        <div class="placing-col placing-hands">
-          <div class="placing-col-label">Your Hands</div>
-          <div id="slot-area" class="hands-stack"></div>
+      <!-- 3 hand slots imprinted on a downward-facing concave arc on the felt -->
+      <div id="hand-arc" class="hand-arc">
+        <div class="hand-slot empty" data-h="0" onclick="openSlotBuilder(0)">
+          <div class="hand-slot-num">I</div>
+          <div class="hand-slot-cards"></div>
         </div>
-        <div class="placing-col placing-pool">
-          <div class="placing-col-label">Your Cards</div>
-          <div id="card-pool" class="pool-grid"></div>
+        <div class="hand-slot empty" data-h="1" onclick="openSlotBuilder(1)">
+          <div class="hand-slot-num">II</div>
+          <div class="hand-slot-cards"></div>
+        </div>
+        <div class="hand-slot empty" data-h="2" onclick="openSlotBuilder(2)">
+          <div class="hand-slot-num">III</div>
+          <div class="hand-slot-cards"></div>
         </div>
       </div>
 
-      <div class="text-center mt-3 pb-4 flex gap-3 justify-center">
-        <button id="deal-btn" class="btn-action" style="display:none;" onclick="revealAndPlay()">Reveal &amp; Play →</button>
+      <!-- Reveal button - auto-shown when all 3 hands are filled -->
+      <div class="text-center pb-4 felt-action-row">
+        <button id="deal-btn" class="btn-action" style="display:none;" onclick="revealAndPlay()">Reveal &amp; Play &rarr;</button>
+      </div>
+
+      <!-- Slot builder panel - slides up from bottom when a slot is tapped -->
+      <div id="slot-builder" class="slot-builder hidden" onclick="if(event.target===this)closeSlotBuilder()">
+        <div class="builder-panel">
+          <div class="builder-header">
+            <span id="builder-title">Hand 1</span>
+            <button class="builder-close" onclick="closeSlotBuilder()" aria-label="Close">&times;</button>
+          </div>
+          <div class="builder-target">
+            <div id="builder-slot-1" class="card-slot"></div>
+            <div id="builder-slot-2" class="card-slot"></div>
+          </div>
+          <div class="builder-pool-label">Your Cards</div>
+          <div id="builder-pool" class="builder-pool"></div>
+          <div class="builder-actions">
+            <button id="builder-confirm" class="btn-action" disabled onclick="confirmSlotBuild()">Confirm Hand</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -519,20 +671,20 @@
     <div id="phase-playing" style="display:none;padding:12px 4px;">
       <div class="text-center mb-3">
         <div id="playing-label" style="font-family:'VT323',monospace;font-size:1.2rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Hand 1 of 3</div>
-        <div id="match-score-display" style="font-family:'VT323',monospace;font-size:0.9rem;color:rgba(201,149,42,0.55);margin-top:2px;">Match: 0 – 0</div>
+        <div id="match-score-display" style="font-family:'VT323',monospace;font-size:0.9rem;color:rgba(200,144,40,0.55);margin-top:2px;">Match: 0 – 0</div>
       </div>
 
       <!-- DEALER -->
       <div class="mb-3 flex items-start gap-3">
         <!-- J. Black dealer avatar — placeholder for polish -->
-        <svg viewBox="0 0 80 95" width="52" height="62" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:6px;border:1.5px solid rgba(201,149,42,0.45);">
+        <svg viewBox="0 0 80 95" width="52" height="62" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:6px;border:1.5px solid rgba(200,144,40,0.45);">
           <rect width="80" height="95" fill="#0e2012"/>
           <path d="M0,95 L0,66 Q5,56 19,52 L33,46 L40,53 L47,46 L61,52 Q75,56 80,66 L80,95Z" fill="#2c0a10"/>
           <line x1="31" y1="58" x2="29" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
           <line x1="49" y1="58" x2="51" y2="95" stroke="#5a1a20" stroke-width="1.2" opacity="0.5"/>
           <path d="M34,47 L40,55 L46,47 L44,43 L36,43Z" fill="#e8e0cc"/>
-          <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#7a1826"/>
-          <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8a2030"/>
+          <polygon points="33,43 38,40 40,44 42,40 47,43 42,47 40,44 38,47" fill="#8a1820"/>
+          <ellipse cx="40" cy="43.5" rx="1.8" ry="1.8" fill="#8c1a22"/>
           <rect x="35" y="37" width="10" height="10" rx="3" fill="#7a4030"/>
           <ellipse cx="24" cy="27" rx="3" ry="4" fill="#7a4030"/>
           <ellipse cx="56" cy="27" rx="3" ry="4" fill="#7a4030"/>
@@ -565,7 +717,7 @@
           </g>
         </svg>
         <div class="flex-1">
-          <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Dealer</div>
+          <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(200,144,40,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">Dealer</div>
           <div class="flex items-center gap-3 flex-wrap">
             <div class="flex gap-2 flex-wrap" id="dealer-cards-display"></div>
             <div id="dealer-val" class="val-display"></div>
@@ -577,7 +729,7 @@
 
       <!-- PLAYER -->
       <div class="mb-4">
-        <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(201,149,42,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">You</div>
+        <div style="font-family:'VT323',monospace;font-size:0.85rem;color:rgba(200,144,40,0.6);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;">You</div>
         <div class="flex items-center gap-3 flex-wrap">
           <div class="flex gap-2 flex-wrap" id="player-cards-display"></div>
           <div id="player-val" class="val-display"></div>
@@ -606,7 +758,7 @@
 
       <div id="results-breakdown" class="space-y-2 mb-4"></div>
 
-      <div id="elo-result" class="text-center mb-4 py-3" style="font-family:'VT323',monospace;border:2px solid rgba(201,149,42,0.3);background:rgba(0,0,0,0.3);"></div>
+      <div id="elo-result" class="text-center mb-4 py-3" style="font-family:'VT323',monospace;border:2px solid rgba(200,144,40,0.3);background:rgba(0,0,0,0.3);"></div>
 
       <div class="flex gap-3 justify-center pb-4" id="next-match-area" style="display:none;">
         <button class="btn-action" onclick="initMatch()">Next Match →</button>
@@ -619,7 +771,12 @@
     </div>
 
     <!-- FOOTER -->
-    <p style="position:fixed;left:0;right:0;bottom:1vw;font-size:10px;text-align:center;opacity:0.4;padding:0;letter-spacing:0.3em;text-transform:uppercase;font-family:'VT323',monospace;pointer-events:none;">&copy; Tacticon Studios 2026 &mdash; v0.0.15</p>
+    <!-- In-game footer - mirrors the front-menu .menu-footer style exactly (lines + glow text + 0.6 opacity), pinned to viewport bottom -->
+    <div class="menu-footer" style="position:fixed;left:1vw;right:1vw;bottom:1vw;pointer-events:none;">
+      <div class="footer-line left"></div>
+      <span class="footer-text">Tacticon Studios 2026 · v0.0.16</span>
+      <div class="footer-line right"></div>
+    </div>
   </div>
 
   <script>
@@ -686,7 +843,7 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
-      { v:'v0.0.15', date:'2026-05', notes:['"J. Black\'s Lounge" reskin: burgundy/brass/cream palette, brocade body bg, cream-parchment cards with brass borders, leather-feel hand-group panels with gold trim, gold-edged burgundy buttons. Tutorial copy rewritten in J. Black\'s voice.','Placing-phase UI restructured: 3 build-hands now stack on the LEFT, card pool on the RIGHT in a 2x4 grid.','Card pool bumped from 7 to 8 (2 spares now discarded instead of 1).','"Place All" button removed - card-by-card placement only.','In-game footer pinned to viewport bottom (1vw offset) across all phases.'] },
+      { v:'v0.0.16', date:'2026-05', notes:['"J. Black\'s Lounge" reskin: burgundy/brass/cream palette, brocade body bg, cream-parchment cards with brass borders, leather-feel hand-group panels with gold trim, gold-edged burgundy buttons. Tutorial copy rewritten in J. Black\'s voice.','Placing-phase UI restructured: 3 build-hands now stack on the LEFT, card pool on the RIGHT in a 2x4 grid.','Card pool bumped from 7 to 8 (2 spares now discarded instead of 1).','"Place All" button removed - card-by-card placement only.','In-game footer pinned to viewport bottom (1vw offset) across all phases.'] },
       { v:'v0.0.13', date:'2026-05', notes:['OPW shell retrofit: start overlay with match history, patch notes, and back-button support.'] },
       { v:'v0.0.12', date:'2026-05', notes:['Improved service worker: CDN resources now cached for offline support.'] },
       { v:'v0.0.11', date:'2026-05', notes:['PWA install support added.'] },
@@ -705,8 +862,8 @@
       const el = document.getElementById('hs-list');
       const stats = loadStats();
       el.innerHTML = `
-        <div style="text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid rgba(201,149,42,0.25);">
-          <div style="font-family:'VT323',monospace;color:rgba(201,149,42,0.7);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;">Current ELO</div>
+        <div style="text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid rgba(200,144,40,0.25);">
+          <div style="font-family:'VT323',monospace;color:rgba(200,144,40,0.7);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;">Current ELO</div>
           <div style="font-family:'VT323',monospace;color:var(--color-glow);font-size:2.8rem;line-height:1.1;">${stats.elo}</div>
           <div style="font-size:0.8rem;color:rgba(255,255,255,0.5);margin-top:2px;">${stats.wins}W &nbsp;${stats.losses}L &nbsp;${stats.draws}D</div>
         </div>
@@ -934,119 +1091,110 @@
       if (el) el.innerText = `Match: ${playerWins} – ${dealerWins}`;
     }
 
-    // ─── PLACING PHASE ────────────────────────────────────────────────────────
+    // ─── PLACING PHASE - felt + concave hand arc + slide-up slot builder ─────
+    // activeBuilderSlot = -1 closed, 0/1/2 the hand currently being built
+    let activeBuilderSlot = -1;
+    // builderPicks: pool indices the player has tentatively chosen for this slot (max 2)
+    let builderPicks = [];
+
     function renderPlacingPhase() {
-      renderSlots();
-      renderPool();
-      // 8-card pool, 6 placed -> 2 spares stay in the pool, that's the ready state
-      const allPlaced = playerPool.length <= 2;
-      document.getElementById('deal-btn').style.display = allPlaced ? 'inline-block' : 'none';
+      renderHandArc();
+      const allFilled = playerHands.every(h => h[0] !== undefined && h[1] !== undefined);
+      document.getElementById('deal-btn').style.display = allFilled ? 'inline-block' : 'none';
     }
 
-    function renderSlots() {
-      const container = document.getElementById('slot-area');
-      container.innerHTML = '';
+    function renderHandArc() {
+      const arc = document.getElementById('hand-arc');
+      if (!arc) return;
       for (let h = 0; h < 3; h++) {
-        const hot = selectedPoolIdx >= 0;
-        const div = document.createElement('div');
-        div.className = `hand-group${hot ? ' slot-hot' : ''}`;
-        div.onclick = () => clickHandGroup(h);
-        let inner = `<div class="hand-label">Hand ${h+1}</div><div class="flex gap-1">`;
-        for (let s = 0; s < 2; s++) {
-          const cidx = playerHands[h][s];
-          if (cidx !== undefined) {
-            const c = playerCards[cidx];
-            const red = ['♥','♦'].includes(c.suit);
-            inner += `<div class="card-slot slot-filled" onclick="event.stopPropagation();unplaceCard(${h},${s})">
-              <div class="card ${red?'card-red':'card-black'}">
-                <div class="card-tl">${c.value}<br>${c.suit}</div>
-                <div class="card-center">${c.suit}</div>
-                <div class="card-br">${c.value}<br>${c.suit}</div>
-              </div>
-            </div>`;
-          } else {
-            inner += `<div class="card-slot${hot ? ' slot-hot' : ''}">
-              <span style="color:rgba(201,149,42,0.35);font-size:1.4rem;">+</span>
-            </div>`;
-          }
+        const slot = arc.querySelector(`.hand-slot[data-h="${h}"]`);
+        if (!slot) continue;
+        const filled = playerHands[h][0] !== undefined && playerHands[h][1] !== undefined;
+        slot.classList.toggle('filled', filled);
+        slot.classList.toggle('empty', !filled);
+        const cardsEl = slot.querySelector('.hand-slot-cards');
+        if (filled) {
+          cardsEl.innerHTML = `${cardHTML(playerCards[playerHands[h][0]])}${cardHTML(playerCards[playerHands[h][1]])}`;
+        } else {
+          cardsEl.innerHTML = '';
         }
-        inner += '</div>';
-        div.innerHTML = inner;
-        container.appendChild(div);
       }
     }
 
-    function renderPool() {
-      const container = document.getElementById('card-pool');
-      container.innerHTML = '';
-      playerPool.forEach((cardIdx, poolPos) => {
+    function openSlotBuilder(h) {
+      // Once a slot is filled, tapping it does nothing (re-edit blocked for simplicity)
+      if (playerHands[h][0] !== undefined && playerHands[h][1] !== undefined) return;
+      activeBuilderSlot = h;
+      builderPicks = [];
+      document.getElementById('builder-title').textContent = `Hand ${['I','II','III'][h]}`;
+      document.getElementById('slot-builder').classList.remove('hidden');
+      renderBuilder();
+      SFX.card();
+    }
+
+    function closeSlotBuilder() {
+      // Picks were tentative - cards stay in pool, no commit
+      activeBuilderSlot = -1;
+      builderPicks = [];
+      document.getElementById('slot-builder').classList.add('hidden');
+    }
+
+    function renderBuilder() {
+      // Two target slots at top of panel
+      [0, 1].forEach(s => {
+        const tgt = document.getElementById(`builder-slot-${s+1}`);
+        if (!tgt) return;
+        if (builderPicks[s] !== undefined) {
+          const cardIdx = builderPicks[s];
+          tgt.classList.add('slot-filled');
+          tgt.innerHTML = cardHTML(playerCards[cardIdx]);
+          tgt.onclick = () => unpickBuilderCard(s);
+        } else {
+          tgt.classList.remove('slot-filled');
+          tgt.innerHTML = `<span style="color:rgba(240,192,64,0.35);font-size:1.4rem;">+</span>`;
+          tgt.onclick = null;
+        }
+      });
+      // Pool: cards still available + not currently picked for this slot
+      const pool = document.getElementById('builder-pool');
+      pool.innerHTML = '';
+      playerPool.forEach((cardIdx) => {
+        if (builderPicks.includes(cardIdx)) return; // Picked cards live in target row
         const c = playerCards[cardIdx];
         const red = ['♥','♦'].includes(c.suit);
         const div = document.createElement('div');
-        div.className = `card ${red ? 'card-red' : 'card-black'}${selectedPoolIdx === poolPos ? ' selected' : ''}`;
-        div.onclick = () => selectPoolCard(poolPos);
+        div.className = `card ${red ? 'card-red' : 'card-black'}`;
+        div.onclick = () => pickBuilderCard(cardIdx);
         div.innerHTML = `<div class="card-tl">${c.value}<br>${c.suit}</div><div class="card-center">${c.suit}</div><div class="card-br">${c.value}<br>${c.suit}</div>`;
-        container.appendChild(div);
+        pool.appendChild(div);
       });
+      const confirm = document.getElementById('builder-confirm');
+      confirm.disabled = builderPicks.length !== 2;
     }
 
-    let lastTapPoolPos = -1;
-    let lastTapTime = 0;
-
-    function selectPoolCard(poolPos) {
-      const now = Date.now();
-      if (poolPos === lastTapPoolPos && now - lastTapTime < 300) {
-        lastTapPoolPos = -1;
-        lastTapTime = 0;
-        selectedPoolIdx = poolPos;
-        placeCardRandomly();
-        return;
-      }
-      lastTapPoolPos = poolPos;
-      lastTapTime = now;
-      selectedPoolIdx = (selectedPoolIdx === poolPos) ? -1 : poolPos;
-      if (selectedPoolIdx >= 0) SFX.card();
-      renderPlacingPhase();
+    function pickBuilderCard(cardIdx) {
+      if (builderPicks.length >= 2) return;
+      if (builderPicks.includes(cardIdx)) return;
+      builderPicks.push(cardIdx);
+      SFX.card();
+      renderBuilder();
     }
 
-    function placeCardRandomly() {
-      const emptySlots = [];
-      for (let h = 0; h < 3; h++) {
-        for (let s = 0; s < 2; s++) {
-          if (playerHands[h][s] === undefined) emptySlots.push([h, s]);
-        }
-      }
-      if (!emptySlots.length) return;
-      const [h, s] = emptySlots[Math.floor(rng() * emptySlots.length)];
-      placeCardInSlot(h, s);
+    function unpickBuilderCard(s) {
+      if (builderPicks[s] === undefined) return;
+      builderPicks.splice(s, 1);
+      renderBuilder();
     }
 
-    function clickHandGroup(h) {
-      if (selectedPoolIdx < 0) return;
-      for (let s = 0; s < 2; s++) {
-        if (playerHands[h][s] === undefined) {
-          placeCardInSlot(h, s);
-          return;
-        }
-      }
-    }
-
-    function placeCardInSlot(h, s) {
-      if (selectedPoolIdx < 0) return;
-      if (playerHands[h][s] !== undefined) return;
-      playerHands[h][s] = playerPool[selectedPoolIdx];
-      playerPool.splice(selectedPoolIdx, 1);
-      selectedPoolIdx = -1;
+    function confirmSlotBuild() {
+      if (activeBuilderSlot < 0 || builderPicks.length !== 2) return;
+      const h = activeBuilderSlot;
+      // Commit picks to playerHands + remove from pool
+      playerHands[h][0] = builderPicks[0];
+      playerHands[h][1] = builderPicks[1];
+      playerPool = playerPool.filter(i => !builderPicks.includes(i));
       SFX.place();
-      renderPlacingPhase();
-    }
-
-    function unplaceCard(h, s) {
-      const cidx = playerHands[h][s];
-      if (cidx === undefined) return;
-      playerHands[h][s] = undefined;
-      playerPool.push(cidx);
-      selectedPoolIdx = -1;
+      closeSlotBuilder();
       renderPlacingPhase();
     }
 
@@ -1220,7 +1368,7 @@
         const rText = isBJW ? 'BJ' : r.toUpperCase();
         return `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;
                              background:rgba(0,0,0,0.3);border-radius:4px;font-family:'VT323',monospace;">
-          <span style="color:rgba(201,149,42,0.7);width:56px;flex-shrink:0;">HAND ${i+1}</span>
+          <span style="color:rgba(200,144,40,0.7);width:56px;flex-shrink:0;">HAND ${i+1}</span>
           <span style="flex:1;color:#ddd;">You ${pv}${isBJW?' ★':''} vs Dealer ${dv}</span>
           <span style="color:${col};font-size:1.1rem;flex-shrink:0;">${rText}</span>
         </div>`;
@@ -1239,7 +1387,7 @@
         const dStr  = eloDelta >= 0 ? `+${eloDelta}` : `${eloDelta}`;
         const dCol  = eloDelta >= 0 ? '#4ade80' : '#f87171';
         document.getElementById('elo-result').innerHTML = `
-          <div style="font-size:0.85rem;color:rgba(201,149,42,0.7);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
+          <div style="font-size:0.85rem;color:rgba(200,144,40,0.7);text-transform:uppercase;letter-spacing:0.1em;">ELO</div>
           <div style="font-size:2rem;color:var(--color-glow);line-height:1.1;">${newElo}</div>
           <div style="font-size:1.2rem;color:${dCol};">${dStr}</div>`;
 
