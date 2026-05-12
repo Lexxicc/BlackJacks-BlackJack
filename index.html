@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="author" content="lexxicc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Black Jack's BlackJack v0.0.16</title>
+  <title>Black Jack's BlackJack v0.0.17</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#c9952a">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
       --color-bowtie:   #8a1820;
     }
 
-    /* ── FRONT MENU (SoT pattern — 5 zones, uniform 1.5vw padding+gap) ── */
+    /* ── FRONT MENU (SoT pattern - 5 zones, uniform 1.5vw padding+gap) ── */
     .menu-scroll {
       background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-panel) 45%, var(--color-panel) 55%, var(--color-bg-dark) 100%);
       border: 6px solid var(--color-primary);
@@ -49,7 +49,7 @@
     }
     .menu-scroll::-webkit-scrollbar { display: none; }
 
-    /* ── ZONE 1 — LOGO (flex/stretch — grows to fill leftover panel height) ── */
+    /* ── ZONE 1 - LOGO (flex/stretch - grows to fill leftover panel height) ── */
     .logo-container {
       flex: 1 1 auto;
       min-height: calc(240px - 1.5vw);
@@ -59,7 +59,7 @@
     .logo-container svg,
     .logo-container img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
-    /* ── ZONE 2 — TAGLINE ── */
+    /* ── ZONE 2 - TAGLINE ── */
     .tagline-container {
       flex: 0 0 auto;
       display: flex; align-items: center; justify-content: center;
@@ -74,7 +74,7 @@
       letter-spacing: 0.35em; white-space: nowrap;
     }
 
-    /* ── ZONE 3 — BUTTONS ── */
+    /* ── ZONE 3 - BUTTONS ── */
     .menu-buttons { flex: 0 0 auto; display: flex; flex-direction: column; }
     .start-menu-btn {
       display: flex; align-items: center; gap: 12px; width: 100%;
@@ -89,7 +89,7 @@
     .start-menu-btn:last-child { border-bottom: none; }
     .start-menu-btn .arrow { margin-left: auto; font-size: 1rem; opacity: 0.4; font-family: sans-serif; }
 
-    /* ── ZONE 4 — CHALLENGE (inline) ── */
+    /* ── ZONE 4 - CHALLENGE (inline) ── */
     .challenge-container {
       flex: 0 0 auto;
       padding: 0.75vw 16px 8px;
@@ -113,7 +113,7 @@
       color: var(--color-bg-dark); border: none; cursor: pointer; white-space: nowrap;
     }
 
-    /* ── ZONE 5 — FOOTER ── */
+    /* ── ZONE 5 - FOOTER ── */
     .menu-footer {
       flex: 0 0 auto;
       display: flex; align-items: center; justify-content: center;
@@ -430,7 +430,7 @@
     <!-- ── MAIN ── -->
     <div id="start-main" class="menu-scroll relative z-10">
 
-      <!-- ZONE 1 — LOGO (flex/stretch) -->
+      <!-- ZONE 1 - LOGO (flex/stretch) -->
       <div class="logo-container">
         <svg viewBox="0 0 80 95" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <rect width="80" height="95" fill="#0e2012"/>
@@ -473,14 +473,14 @@
         </svg>
       </div>
 
-      <!-- ZONE 2 — TAGLINE -->
+      <!-- ZONE 2 - TAGLINE -->
       <div class="tagline-container">
         <div class="tagline-line left"></div>
         <span class="tagline-text">Welcome to J. Black's Table</span>
         <div class="tagline-line right"></div>
       </div>
 
-      <!-- ZONE 3 — BUTTONS -->
+      <!-- ZONE 3 - BUTTONS -->
       <div class="menu-buttons">
         <button class="start-menu-btn" onclick="startGame()"><span>Play</span><span class="arrow">↵</span></button>
         <button class="start-menu-btn" onclick="showStartPanel('howtoplay')"><span>How to Play</span><span class="arrow">›</span></button>
@@ -489,7 +489,7 @@
         <button class="start-menu-btn" onclick="showStartPanel('settings')"><span>Settings</span><span class="arrow">›</span></button>
       </div>
 
-      <!-- ZONE 4 — CHALLENGE (inline) -->
+      <!-- ZONE 4 - CHALLENGE (inline) -->
       <div class="challenge-container">
         <p class="challenge-label">Accept a Challenge</p>
         <div class="challenge-row">
@@ -499,10 +499,10 @@
         <p id="challenge-error" class="hidden" style="margin-top:8px;color:#e84449;font-size:0.875rem;font-family:'VT323',monospace;"></p>
       </div>
 
-      <!-- ZONE 5 — FOOTER -->
+      <!-- ZONE 5 - FOOTER -->
       <div class="menu-footer">
         <div class="footer-line left"></div>
-        <span class="footer-text">Tacticon Studios 2026 · v0.0.16</span>
+        <span class="footer-text">Tacticon Studios 2026 · v0.0.17</span>
         <div class="footer-line right"></div>
       </div>
 
@@ -615,7 +615,7 @@
       <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--color-glow);opacity:0.7;">Black Jack's BlackJack</div>
       <div class="text-right">
         <div style="font-family:'VT323',monospace;font-size:0.8rem;color:rgba(200,144,40,0.65);text-transform:uppercase;letter-spacing:0.1em;">Series</div>
-        <div id="match-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">0 – 0</div>
+        <div id="match-display" style="font-family:'VT323',monospace;font-size:1.7rem;color:var(--color-glow);">0 - 0</div>
       </div>
     </div>
 
@@ -671,12 +671,12 @@
     <div id="phase-playing" style="display:none;padding:12px 4px;">
       <div class="text-center mb-3">
         <div id="playing-label" style="font-family:'VT323',monospace;font-size:1.2rem;color:var(--color-primary);text-transform:uppercase;letter-spacing:0.2em;">Hand 1 of 3</div>
-        <div id="match-score-display" style="font-family:'VT323',monospace;font-size:0.9rem;color:rgba(200,144,40,0.55);margin-top:2px;">Match: 0 – 0</div>
+        <div id="match-score-display" style="font-family:'VT323',monospace;font-size:0.9rem;color:rgba(200,144,40,0.55);margin-top:2px;">Match: 0 - 0</div>
       </div>
 
       <!-- DEALER -->
       <div class="mb-3 flex items-start gap-3">
-        <!-- J. Black dealer avatar — placeholder for polish -->
+        <!-- J. Black dealer avatar - placeholder for polish -->
         <svg viewBox="0 0 80 95" width="52" height="62" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:6px;border:1.5px solid rgba(200,144,40,0.45);">
           <rect width="80" height="95" fill="#0e2012"/>
           <path d="M0,95 L0,66 Q5,56 19,52 L33,46 L40,53 L47,46 L61,52 Q75,56 80,66 L80,95Z" fill="#2c0a10"/>
@@ -774,7 +774,7 @@
     <!-- In-game footer - mirrors the front-menu .menu-footer style exactly (lines + glow text + 0.6 opacity), pinned to viewport bottom -->
     <div class="menu-footer" style="position:fixed;left:1vw;right:1vw;bottom:1vw;pointer-events:none;">
       <div class="footer-line left"></div>
-      <span class="footer-text">Tacticon Studios 2026 · v0.0.16</span>
+      <span class="footer-text">Tacticon Studios 2026 · v0.0.17</span>
       <div class="footer-line right"></div>
     </div>
   </div>
@@ -831,7 +831,7 @@
     function copyShareText() {
       if (!challengeSeed) challengeSeed = generateSeed();
       const stats = loadStats();
-      const text = `I'm rated ${stats.elo} ELO on Black Jack's BlackJack! Challenge code: ${challengeSeed} — can you beat it?`;
+      const text = `I'm rated ${stats.elo} ELO on Black Jack's BlackJack! Challenge code: ${challengeSeed} - can you beat it?`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('share-btn');
         if (btn) { const old = btn.innerText; btn.innerText = 'Copied!'; setTimeout(() => btn.innerText = old, 2000); }
@@ -843,17 +843,18 @@
       return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
     const PATCH_NOTES = [
+      { v:'v0.0.17', date:'2026-05', notes:['Superaudit pass: 22 em/en-dashes purged across HTML/CSS/JS + patch notes prose (per workspace no-em-dash rule). No mechanical changes.'] },
       { v:'v0.0.16', date:'2026-05', notes:['"J. Black\'s Lounge" reskin: burgundy/brass/cream palette, brocade body bg, cream-parchment cards with brass borders, leather-feel hand-group panels with gold trim, gold-edged burgundy buttons. Tutorial copy rewritten in J. Black\'s voice.','Placing-phase UI restructured: 3 build-hands now stack on the LEFT, card pool on the RIGHT in a 2x4 grid.','Card pool bumped from 7 to 8 (2 spares now discarded instead of 1).','"Place All" button removed - card-by-card placement only.','In-game footer pinned to viewport bottom (1vw offset) across all phases.'] },
       { v:'v0.0.13', date:'2026-05', notes:['OPW shell retrofit: start overlay with match history, patch notes, and back-button support.'] },
       { v:'v0.0.12', date:'2026-05', notes:['Improved service worker: CDN resources now cached for offline support.'] },
       { v:'v0.0.11', date:'2026-05', notes:['PWA install support added.'] },
       { v:'v0.0.10', date:'2026-05', notes:['Mobile optimisation: added overscroll-behavior: none; localStorage key standardised to BJ prefix.'] },
     { v:'v0.0.9', date:'2026-05', notes:['Version bump.'] },
-      { v:'v0.0.8', date:'2026-05', notes:['placeCardRandomly and placeAllRandomly now use seeded rng — card placement in challenge mode is reproducible.'] },
+      { v:'v0.0.8', date:'2026-05', notes:['placeCardRandomly and placeAllRandomly now use seeded rng - card placement in challenge mode is reproducible.'] },
       { v:'v0.0.7', date:'2026-05', notes:['J. Black dealer avatar added to start menu and playing phase.'] },
       { v:'v0.0.6', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.5', date:'2026-05', notes:['Version bump.'] },
-      { v:'v0.0.4', date:'2026-05', notes:['Mobile viewport fix — menu now fills screen height on mobile.', 'Double-tap a card in the placing phase to place it at random.', 'Added Place All button — places all remaining cards randomly.'] },
+      { v:'v0.0.4', date:'2026-05', notes:['Mobile viewport fix - menu now fills screen height on mobile.', 'Double-tap a card in the placing phase to place it at random.', 'Added Place All button - places all remaining cards randomly.'] },
       { v:'v0.0.3', date:'2026-05', notes:['Version bump.'] },
       { v:'v0.0.2', date:'2026-05', notes:['Fixed main menu title overflow on small screens.', 'Reduced card and slot sizes in placing phase to fit mobile screens.'] },
       { v:'v0.0.1', date:'2026-05', notes:['Initial release. Three-hand blackjack. Blind card placement. ELO ranking system.'] },
@@ -1084,11 +1085,11 @@
       document.getElementById('elo-display').innerText = loadStats().elo;
     }
     function updateSeriesDisplay() {
-      document.getElementById('match-display').innerText = `${playerSeriesWins} – ${dealerSeriesWins}`;
+      document.getElementById('match-display').innerText = `${playerSeriesWins} - ${dealerSeriesWins}`;
     }
     function updateHandDisplay() {
       const el = document.getElementById('match-score-display');
-      if (el) el.innerText = `Match: ${playerWins} – ${dealerWins}`;
+      if (el) el.innerText = `Match: ${playerWins} - ${dealerWins}`;
     }
 
     // ─── PLACING PHASE - felt + concave hand arc + slide-up slot builder ─────
@@ -1358,7 +1359,7 @@
 
       document.getElementById('results-winner').innerText   = seriesOver ? seriesWinnerText : matchWinnerText;
       document.getElementById('results-winner').style.color = seriesOver ? seriesWinnerColor : matchWinnerColor;
-      document.getElementById('results-score').innerText    = `Series ${playerSeriesWins} – ${dealerSeriesWins}`;
+      document.getElementById('results-score').innerText    = `Series ${playerSeriesWins} - ${dealerSeriesWins}`;
 
       document.getElementById('results-breakdown').innerHTML = handResults.map((r, i) => {
         const pv = handVal(playerHandCards[i]);
